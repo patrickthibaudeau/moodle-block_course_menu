@@ -37,6 +37,20 @@ class block_course_menu extends block_base {
      * @return stdClass The block contents.
      */
     public function get_content() {
+        global $DB, $USER, $PAGE;
+
+        $show_in_section_zero = false;
+        // Get block data
+        $block_data = $DB->get_record('block_course_menu', array('instance' => $this->instance->id));
+
+        if (!$block_data) {
+            $id = $DB->insert_record('block_course_menu', array(
+                'instance' => $this->instance->id,
+                'usermodified' => $USER->id,
+                'timecreated' => time(),
+                'timemodified' => time()));
+            $block_data = $DB->get_record('block_course_menu', array('id' => $id));
+        }
 
         if ($this->content !== null) {
             return $this->content;
@@ -47,17 +61,21 @@ class block_course_menu extends block_base {
             return $this->content;
         }
 
+        if ($block_data->section_zero == 1) {
+            $this->title = null;
+        }
+
+        $PAGE->requires->js_call_amd('block_course_menu/block', 'init');;
+        // Get renderable content.
+        $output = $PAGE->get_renderer('block_course_menu');
+        $block = new \block_course_menu\output\block($block_data->id, $block_data->section_zero);
+
         $this->content = new stdClass();
         $this->content->items = array();
         $this->content->icons = array();
         $this->content->footer = '';
 
-        if (!empty($this->config->text)) {
-            $this->content->text = $this->config->text;
-        } else {
-            $text = 'Please define the content text in /blocks/course_menu/block_course_menu.php.';
-            $this->content->text = $text;
-        }
+        $this->content->text = $output->render_block($block);;
 
         return $this->content;
     }

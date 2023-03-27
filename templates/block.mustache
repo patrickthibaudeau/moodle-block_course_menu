@@ -1,0 +1,23 @@
+<input type="hidden" id="show_in_section_zero" value="{{show_in_section_zero}}">
+{{#editor}}
+    <div class="row">
+        <div class="col">
+            <form id="course-menu-options-form">
+                <div class="form-check">
+                    <input
+                            type="checkbox"
+                            class="form-check-input"
+                            id="course-menu-show-section-zero"
+                            data-id="{{id}}"
+                            {{#show_in_section_zero}}checked{{/show_in_section_zero}}
+                    >
+                    <label for="course-menu-show-section-zero">{{#str}}
+                        show_in_section_zero, block_course_menu{{/str}}</label>
+                </div>
+            </form>
+            <a href="" id="course-menu-edit" class="btn btn-outline-primary btn-sm">
+                {{#str}}edit_menu, block_course_menu{{/str}}
+            </a>
+        </div>
+    </div>
+{{/editor}}

@@ -25,5 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['edit_menu'] = 'Edit menu';
 $string['course_menu:edit'] = 'Edit';
 $string['pluginname'] = 'Custom Course Menu';
+$string['show_in_section_zero'] = 'Show block in section zero';
