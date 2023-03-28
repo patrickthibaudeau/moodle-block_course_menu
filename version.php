@@ -26,6 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'block_course_menu';
 $plugin->release = '0.1.0';
-$plugin->version = 2023032601;
+$plugin->version = 2023032702;
 $plugin->requires = 2022112800;
 $plugin->maturity = MATURITY_ALPHA;

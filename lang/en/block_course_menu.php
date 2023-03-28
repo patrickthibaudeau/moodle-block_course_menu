@@ -27,5 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['edit_menu'] = 'Edit menu';
 $string['course_menu:edit'] = 'Edit';
+$string['menu_builder'] = 'Menu Builder';
+$string['nopermissions'] = 'You do not have permission to edit this menu.';
 $string['pluginname'] = 'Custom Course Menu';
 $string['show_in_section_zero'] = 'Show block in section zero';
