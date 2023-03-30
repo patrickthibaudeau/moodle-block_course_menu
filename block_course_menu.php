@@ -75,7 +75,7 @@ class block_course_menu extends block_base {
         $this->content->icons = array();
         $this->content->footer = '';
 
-        $this->content->text = $output->render_block($block);;
+        $this->content->text = $output->render_block($block);
 
         return $this->content;
     }

@@ -1,4 +1,11 @@
 <input type="hidden" id="show_in_section_zero" value="{{show_in_section_zero}}">
+{{#show_in_section_zero}}
+    {{> block_course_menu/menu}}
+{{/show_in_section_zero}}
+{{^show_in_section_zero}}
+    {{> block_course_menu/menu_list}}
+{{/show_in_section_zero}}
+
 {{#editor}}
     <div class="row">
         <div class="col">

@@ -25,11 +25,12 @@ class menu_builder implements \renderable, \templatable
         global $USER, $CFG, $DB, $COURSE;
 
         $langs = get_string_manager()->get_list_of_translations();
+
         $data = [
             'id' => $this->id,
             'langs' => $langs,
         ];
-        print_object($data);
+//        print_object($data);
         return $data;
     }
 

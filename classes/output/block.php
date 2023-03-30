@@ -39,7 +39,6 @@ class block implements \renderable, \templatable
             'show_in_section_zero' => $this->show_in_section_zero,
             'langs' => $langs,
         ];
-        print_object($data);
         return $data;
     }
 
