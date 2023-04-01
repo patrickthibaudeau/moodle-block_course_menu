@@ -23,7 +23,7 @@ class menu_builder implements \renderable, \templatable
     public function export_for_template(\renderer_base $output)
     {
         global $USER, $CFG, $DB, $COURSE;
-
+        $block_data = $DB->get_record('block_course_menu', array('id' => $this->id));
         $langs = get_string_manager()->get_list_of_translations();
 
         $data = [

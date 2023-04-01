@@ -55,37 +55,88 @@
 
     .section-list-item {
         padding-left: 25px;
-        padding-right:10px
+        padding-right: 10px
     }
 
     .align-left {
         text-align: left !important;
     }
 
+    .small-round {
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        border-style: solid;
+        border-width: thin;
+        border-color: #000;
+    }
+
+    .menu-item .edit-menu-popover {
+        position: relative;
+        top: -35px;
+        left: 90%;
+    }
+
 </style>
+<div class="row mb-3">
+    <div class="col">
+        <a href="{{config.wwwroot}}/blocks/course_menu/edit_section.php?coursemenuid={{id}}" class="btn btn-outline-primary">
+            {{#str}}add_section, block_course_menu{{/str}}
+        </a>
+        <a href="{{config.wwwroot}}/blocks/course_menu/edit_item.php" class="btn btn-outline-primary">
+        {{#str}}add_menu_item, block_course_menu{{/str}}
+        </a>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12 d-flex justify-content-center align-items-center ">
         <ul class="sections">
             <li>
                 <ul class="section">
                     <li class="section-list-item">
-
+                        No-title
                     </li>
                     <li>
                         <ul class="grid-list">
                             <li id="1" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/teaching_team.svg"
-                                         class="btn-icon">
-                                    Teaching Team
-                                </button>
+                                <div class="menu-item">
+                                    <button class="btn btn-secondary btn-lg" style="width:100%">
+                                        <img src="{{config.wwwroot}}/blocks/course_menu/images/teaching_team.svg"
+                                             class="btn-icon">
+                                        Teaching Team
+                                    </button>
+                                    <div class="edit-menu-popover">
+                                        <button class="small-round" type="button" data-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{{config.wwwroot}}/blocks/course_menu/edit_item.php?id={{id}}&coursemenuid={{id}}">{{#str}}edit, block_course_menu{{/str}}</a>
+                                            <a class="dropdown-item delete-item" data-id="{{id}}" data-instanceid="{{blockinstanceid}}" href="#">{{#str}}delete, block_course_menu{{/str}}</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                             <li id="2" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/course_syllabus.svg"
-                                         class="btn-icon">
-                                    Course Syllabus
-                                </button>
+                                <div class="menu-item">
+                                    <button class="btn btn-secondary btn-lg" style="width:100%">
+                                        <img src="{{config.wwwroot}}/blocks/course_menu/images/course_syllabus.svg"
+                                             class="btn-icon">
+                                        Course Syllabus
+                                    </button>
+                                    <div class="edit-menu-popover">
+                                        <button class="small-round" type="button" data-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">{{#str}}edit, block_course_menu{{/str}}</a>
+                                            <a class="dropdown-item" href="#">{{#str}}delete, block_course_menu{{/str}}</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                             <li id="3" class="item">
                                 <button class="btn btn-secondary btn-lg" style="width:100%">

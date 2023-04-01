@@ -25,9 +25,23 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['edit_menu'] = 'Edit menu';
+$string['add_menu_item'] = 'Add menu item';
+$string['add_section'] = 'Add section';
+$string['background_image'] = 'Background image';
 $string['course_menu:edit'] = 'Edit';
+$string['default_images'] = 'Default images';
+$string['delete'] = 'Delete';
+$string['edit'] = 'Edit';
+$string['edit_menu'] = 'Edit menu';
+$string['field_required'] = 'This field is required.';
+$string['icon'] = 'Icon';
+$string['icons'] = 'Icons';
+$string['image'] = 'Image';
+$string['language'] = 'Language';
 $string['menu_builder'] = 'Menu Builder';
 $string['nopermissions'] = 'You do not have permission to edit this menu.';
 $string['pluginname'] = 'Custom Course Menu';
+$string['section'] = 'Section';
 $string['show_in_section_zero'] = 'Show block in section zero';
+$string['show_title'] = 'Show title';
+$string['title'] = 'Title';

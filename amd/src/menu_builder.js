@@ -2,7 +2,7 @@ import $ from 'jquery';
 import jqui from 'jqueryui';
 
 export const init = () => {
-    $('.btn').on('click', function (e) {
+    $('button').on('click', function (e) {
         e.preventDefault();
     })
 

@@ -122,6 +122,58 @@ function xmldb_block_course_menu_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2023032700, 'course_menu');
     }
 
+    if ($oldversion < 2023033002) {
+
+        // Define field display_title to be added to block_course_menu_sections.
+        $table = new xmldb_table('block_course_menu_sections');
+        $field = new xmldb_field('display_title', XMLDB_TYPE_INTEGER, '1', null, null, null, '1', 'title');
+
+        // Conditionally launch add field display_title.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field use_image to be dropped from block_course_menu_sections.
+        $table = new xmldb_table('block_course_menu_sections');
+        $field = new xmldb_field('use_image');
+
+        // Conditionally launch drop field use_image.
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        // Course_menu savepoint reached.
+        upgrade_block_savepoint(true, 2023033002, 'course_menu');
+    }
+
+    if ($oldversion < 2023033003) {
+
+        // Define field image to be added to block_course_menu_sections.
+        $table = new xmldb_table('block_course_menu_sections');
+        $field = new xmldb_field('image', XMLDB_TYPE_CHAR, '100', null, null, null, null, 'icon');
+
+        // Conditionally launch add field image.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Course_menu savepoint reached.
+        upgrade_block_savepoint(true, 2023033003, 'course_menu');
+    }
+
+    if ($oldversion < 2023033100) {
+
+        // Rename field instanceid on table block_course_menu_sections to NEWNAMEGOESHERE.
+        $table = new xmldb_table('block_course_menu_sections');
+        $field = new xmldb_field('instanceid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'id');
+
+        // Launch rename field instanceid.
+        $dbman->rename_field($table, $field, 'coursemenuid');
+
+        // Course_menu savepoint reached.
+        upgrade_block_savepoint(true, 2023033100, 'course_menu');
+    }
+
 
     return true;
 }
