@@ -9,6 +9,10 @@ export const init = () => {
         $('#image-modal').modal('show');
     });
 
+    $('#id_buttonstylegroup_btn_button_type').on('click', function () {
+        $('#button-modal').modal('show');
+    });
+
     $('.fa-hover').on('click', function (e) {
         e.preventDefault();
         let classes = $(this).find('i').attr('class');
@@ -23,5 +27,11 @@ export const init = () => {
         $('#id_imagegroup_image').val(source);
         $('#id_icongroup_icon').val('');
         $('#image-modal').modal('hide');
+    });
+
+    $('.btn-select').on('click', function () {
+        let source = $(this).data('style');
+        $('#id_buttonstylegroup_button_type').val(source);
+        $('#button-modal').modal('hide');
     });
 };

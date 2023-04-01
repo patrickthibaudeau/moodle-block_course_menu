@@ -28,6 +28,8 @@ defined('MOODLE_INTERNAL') || die();
 $string['add_menu_item'] = 'Add menu item';
 $string['add_section'] = 'Add section';
 $string['background_image'] = 'Background image';
+$string['button_style'] = 'Button style';
+$string['buttons'] = 'Buttons';
 $string['course_menu:edit'] = 'Edit';
 $string['default_images'] = 'Default images';
 $string['delete'] = 'Delete';

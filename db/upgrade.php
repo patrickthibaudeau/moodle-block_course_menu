@@ -174,6 +174,20 @@ function xmldb_block_course_menu_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2023033100, 'course_menu');
     }
 
+    if ($oldversion < 2023040100) {
+
+        // Define field button_type to be added to block_course_menu_sections.
+        $table = new xmldb_table('block_course_menu_sections');
+        $field = new xmldb_field('button_type', XMLDB_TYPE_CHAR, '50', null, null, null, 'btn-primary', 'display_title');
+
+        // Conditionally launch add field button_type.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Course_menu savepoint reached.
+        upgrade_block_savepoint(true, 2023040100, 'course_menu');
+    }
 
     return true;
 }

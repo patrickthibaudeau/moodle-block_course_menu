@@ -22,12 +22,16 @@ $PAGE->requires->js_call_amd('block_course_menu/section', 'init');;
 if ($id) {
     $formdata = $DB->get_record('block_course_menu_sections', ['id' => $id]);
     $formdata->instanceid = $COURSE_MENU->get_instance();
+    $formdata->buttonstylegroup['button_type'] = $formdata->button_type;
+    $formdata->imagegroup['image'] = $formdata->image;
+    $formdata->icongroup['icon'] = $formdata->icon;
 } else {
     $formdata = new stdClass();
     $formdata->coursemenuid = $coursemenuid;
     $formdata->instanceid = $COURSE_MENU->get_instance();
     $formdata->lang = current_language();
     $formdata->display_title = true;
+    $formdata->buttonstylegroup['button_type'] = 'btn-primary';
 }
 
 
@@ -45,6 +49,8 @@ file_prepare_draft_area(
     ]
 );
 
+$formdata->background_filemanager = $background_draft_item_id;
+
 $image_draft_item_id = file_get_submitted_draft_itemid('image_filemanager');
 file_prepare_draft_area(
     $image_draft_item_id,
@@ -58,6 +64,8 @@ file_prepare_draft_area(
         'maxfiles' => 1,
     ]
 );
+
+$formdata->image_filemanager = $image_draft_item_id;
 
 $mform = new section(null, array('formdata' => $formdata));
 

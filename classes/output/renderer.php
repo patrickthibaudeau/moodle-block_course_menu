@@ -41,4 +41,14 @@ class renderer extends \plugin_renderer_base {
         $data = $images->export_for_template($this);
         return $this->render_from_template('block_course_menu/image_modal', $data);
     }
+
+    /**
+     *
+     * @param \templatable $branchList
+     * @return type
+     */
+    public function render_buttons(\templatable $buttons) {
+        $data = $buttons->export_for_template($this);
+        return $this->render_from_template('block_course_menu/button_modal', $data);
+    }
 }

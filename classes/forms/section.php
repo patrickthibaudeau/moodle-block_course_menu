@@ -36,12 +36,15 @@ class section extends moodleform
         // Images
         $images = new \block_course_menu\output\images($output);
         $mform->addElement('html', $output->render($images));
+        // Buttons
+        $buttons = new \block_course_menu\output\buttons($output);
+        $mform->addElement('html', $output->render($buttons));
 
         $mform->addElement('header', 'general', get_string('course'));
 
         // Language
-        $mform->addElement('select', 'lang', get_string('language', 'block_course_menu'), $languages);
-        $mform->setType('lang', PARAM_TEXT);
+//        $mform->addElement('select', 'lang', get_string('language', 'block_course_menu'), $languages);
+//        $mform->setType('lang', PARAM_TEXT);
 
         // Title
         $mform->addElement('text', 'title', get_string('title', 'block_course_menu'));
@@ -52,6 +55,13 @@ class section extends moodleform
         $mform->addElement('selectyesno', 'display_title', get_string('show_title', 'block_course_menu'));
         $mform->setType('display_title', PARAM_INT);
 
+        // Button style
+        $button_array = [];
+        $button_array[] =& $mform->createElement('text', 'button_type', null);
+        $button_array[] =& $mform->createElement('button', 'btn_button_type', get_string('select'));
+        $mform->addGroup($button_array, 'buttonstylegroup', get_string('button_style', 'block_course_menu'));
+        $mform->setType('buttonstylegroup[button_type]', PARAM_TEXT);
+
         // Background image
         $mform->addElement('filemanager', 'background_filemanager',
             get_string('background_image', 'block_course_menu'), null, array('maxbytes' => 104857600,
@@ -59,13 +69,11 @@ class section extends moodleform
                 'maxfiles' => 1,
                 'accepted_types' => array('web_image')));
 
-        // Default images
         // Icon
         $image_array = [];
         $image_array[] =& $mform->createElement('text', 'image', null);
         $image_array[] =& $mform->createElement('button', 'btn_image', get_string('select'));
         $mform->addGroup($image_array, 'imagegroup', get_string('default_images', 'block_course_menu'));
-
         $mform->setType('imagegroup[image]', PARAM_TEXT);
 
         // Icon
