@@ -83,9 +83,7 @@
         <a href="{{config.wwwroot}}/blocks/course_menu/edit_section.php?coursemenuid={{id}}" class="btn btn-outline-primary">
             {{#str}}add_section, block_course_menu{{/str}}
         </a>
-        <a href="{{config.wwwroot}}/blocks/course_menu/edit_item.php" class="btn btn-outline-primary">
-        {{#str}}add_menu_item, block_course_menu{{/str}}
-        </a>
+
     </div>
 </div>
 <div class="row">
@@ -94,7 +92,12 @@
             <li>
                 <ul class="section">
                     <li class="section-list-item">
-                        No-title
+                        <button type="button" class="btn btn-primary btn-lg" style="width: 100%; min-height:82px;">Will not show</button>
+                        <br>
+                        <a href="{{config.wwwroot}}/blocks/course_menu/edit_item.php?sectionid={{sectionid}}"
+                        title="{{#str}}add_menu_item, block_course_menu{{/str}}" class="btn btn-outline-primary btn-sm mt-2">
+                        {{#str}}add_menu_item, block_course_menu{{/str}}
+                        </a>
                     </li>
                     <li>
                         <ul class="grid-list">
