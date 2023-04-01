@@ -1,4 +1,7 @@
 <?php
+
+
+
 function block_course_menu_pluginfile($course, $birecord_or_cm, $context, $filearea, $args, $forcedownload, array $options = array())
 {
     global $CFG, $USER, $DB;
@@ -31,7 +34,8 @@ function block_course_menu_pluginfile($course, $birecord_or_cm, $context, $filea
     $fileAreas = array(
         'section_background',
         'section_image',
-        'item'
+        'button_background',
+        'button_image'
     );
 
     if (!in_array($filearea, $fileAreas)) {
