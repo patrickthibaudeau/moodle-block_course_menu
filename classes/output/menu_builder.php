@@ -32,7 +32,7 @@ class menu_builder implements \renderable, \templatable
             'id' => $this->id,
             'sections' => $COURSE_MENU->get_menu_data_for_editing(),
         ];
-        print_object($data);
+
         return $data;
     }
 
