@@ -18,7 +18,7 @@ $PAGE->set_url($CFG->wwwroot . '/blocks/course_menu/edit_buttonphp?id=' . $id . 
 $PAGE->set_title(get_string('menu_button', 'block_course_menu'));
 $PAGE->set_heading(get_string('menu_button', 'block_course_menu'));
 // Load JS
-$PAGE->requires->js_call_amd('block_course_menu/button', 'init');;
+$PAGE->requires->js_call_amd('block_course_menu/button', 'init');
 
 if ($id) {
     $formdata = $DB->get_record('block_course_menu_buttons', ['id' => $id]);
@@ -26,13 +26,18 @@ if ($id) {
     $formdata->buttonstylegroup['button_type'] = $formdata->button_type;
     $formdata->imagegroup['image'] = $formdata->image;
     $formdata->icongroup['icon'] = $formdata->icon;
+    $formdata->iconbgcolorgroup['icon_bg_color'] = $formdata->icon_bg_color;
+    $formdata->coursemenuid = $coursemenuid;
+    $formdata->module = $formdata->cmid . '|' . $formdata->mod_name . '|' . $formdata->mod_title;
 } else {
     $formdata = new stdClass();
     $formdata->coursemenuid = $coursemenuid;
     $formdata->instanceid = $COURSE_MENU->get_instance();
+    $formdata->buttonstylegroup['button_type'] = 'btn-secondary';
     $formdata->lang = current_language();
     $formdata->display_title = true;
     $formdata->sectionid = $sectionid;
+    $formdata->iconbgcolorgroup['icon_bg_color'] = '#8e8d8d';
 }
 
 
@@ -80,9 +85,11 @@ if ($mform->is_cancelled()) {
     }
     $data->image = $data->imagegroup['image'];
     $data->icon = $data->icongroup['icon'];
+    $data->icon_bg_color = $data->iconbgcolorgroup['icon_bg_color'];
     // No longer these fields
     unset($data->imagegroup);
     unset($data->icongroup);
+    unset($data->iconbgcolorgroup);
 
     // Split module into proper fields
     $module = explode('|', $data->module);

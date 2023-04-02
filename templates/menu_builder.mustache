@@ -36,10 +36,31 @@
         visibility: visible !important;
     }
 
-    .btn-icon {
-        width: 60px;
+    .btn-image {
+        width: 60;
         hieght: auto;
         margin-right: 10px;
+    }
+
+    .btn-icon {
+        width: 2em;
+        height: 2em;
+        margin-right: 10px;
+
+        border-radius: 50%;
+    }
+
+    .rescircle {
+        width: 90%; /* adjust this value to change the size of the circle */
+        border-radius: 50%;
+        background: #b5b5b5;
+        font-size: 3.0em;
+    }
+
+    .rescircle:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%; /* this value matches the width to keep the circle shape */
     }
 
     .btn-lg {
@@ -80,38 +101,67 @@
 </style>
 <div class="row mb-3">
     <div class="col">
-        <a href="{{config.wwwroot}}/blocks/course_menu/edit_section.php?coursemenuid={{id}}" class="btn btn-outline-primary">
-            {{#str}}add_section, block_course_menu{{/str}}
+        <a href="{{config.wwwroot}}/blocks/course_menu/edit_section.php?coursemenuid={{id}}" class="btn
+        btn-outline-primary">
+        {{#str}}add_section, block_course_menu{{/str}}
         </a>
 
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12 d-flex justify-content-center align-items-center ">
+    <div class="col-md-12 d-flex justify-content-center align-items-center">
         <ul class="sections">
+            {{#sections}}
             <li>
-                <ul class="section">
-                    <li class="section-list-item">
-                        <button type="button" class="btn btn-primary btn-lg" style="width: 100%; min-height:82px;">Will not show</button>
-                        <br>
-                        <a href="{{config.wwwroot}}/blocks/course_menu/edit_button.php?sectionid={{sectionid}}"
-                        title="{{#str}}add_button, block_course_menu{{/str}}" class="btn btn-outline-primary btn-sm mt-2">
-                        {{#str}}add_button, block_course_menu{{/str}}
-                        </a>
+            <ul class="section">
+                <li class="section-list-item">
+                    <button type="button" class="btn btn-primary btn-lg" style="width: 100%; min-height:82px;">
+                        {{#display_title}}
+                            {{title}}
+                        {{/display_title}}
+                        {{^display_title}}
+                            {{#str}}will_not_display, block_course_menu{{/str}}
+                        {{/display_title}}
+                    </button>
+                    <br>
+                    <a href="{{config.wwwroot}}/blocks/course_menu/edit_button.php?sectionid={{id}}
+                    &coursemenuid={{coursemenuid}}"
+                    title="{{#str}}add_button, block_course_menu{{/str}}" class="btn btn-outline-primary btn-sm mt-2">
+                    {{#str}}add_button, block_course_menu{{/str}}
+                    </a>
 
-                        <a href="javscript:void(0);" data-sectionid="{{sectionid}}"
-                        title="{{#str}}delete_section, block_course_menu{{/str}}" class="btn btn-danger btn-sm mt-2">
+                    <a href="javscript:void(0);" data-sectionid="{{id}}"
+                       title="{{#str}}delete_section, block_course_menu{{/str}}" class="btn btn-danger btn-sm mt-2">
                         {{#str}}delete_section, block_course_menu{{/str}}
-                        </a>
-                    </li>
-                    <li>
-                        <ul class="grid-list">
-                            <li id="1" class="item">
+                    </a>
+                </li>
+                <li>
+                    <ul class="grid-list">
+                        {{#buttons}}
+                            <li id="{{id}}" class="item">
                                 <div class="menu-item">
-                                    <button class="btn btn-secondary btn-lg" style="width:100%">
-                                        <img src="{{config.wwwroot}}/blocks/course_menu/images/teaching_team.svg"
-                                             class="btn-icon">
-                                        Teaching Team
+                                    <button class="btn {{button_type}} btn-lg " style="width:100%">
+                                        <div class="row">
+                                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                                {{#image}}
+                                                    <img src="{{image}}" class="btn-image">
+                                                {{/image}}
+                                                {{#icon}}
+                                                    <div class="rescircle d-flex justify-content-center align-items-center"
+                                                         style="background-color: {{icon_bg_color}}; color: #fff;">
+                                                        <i class="fa {{icon}}"></i>
+                                                    </div>
+                                                {{/icon}}
+                                            </div>
+                                            <div class="col-8 d-flex justify-content-left align-items-center">
+                                                {{#display_title}}
+                                                    {{title}}
+                                                {{/display_title}}
+                                            </div>
+                                        </div>
+
+                                    </button>
+
                                     </button>
                                     <div class="edit-menu-popover">
                                         <button class="small-round" type="button" data-toggle="dropdown"
@@ -120,101 +170,22 @@
 
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{config.wwwroot}}/blocks/course_menu/edit_button.php?id={{id}}&coursemenuid={{id}}">{{#str}}edit, block_course_menu{{/str}}</a>
-                                            <a class="dropdown-item delete-item" data-id="{{id}}" data-instanceid="{{blockinstanceid}}" href="#">{{#str}}delete, block_course_menu{{/str}}</a>
+                                            <a class="dropdown-item"
+                                               href="{{config.wwwroot}}/blocks/course_menu/edit_button.php?id={{id}}
+                                            &coursemenuid={{id}}&sectionid={{sectionid}}">
+                                            {{#str}}edit, block_course_menu{{/str}}</a>
+                                            <a class="dropdown-item delete-item" data-id="{{id}}"
+                                               data-coursemenuid="{{coursemenuid}}" href="#">{{#str}}
+                                                delete, block_course_menu{{/str}}</a>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            <li id="2" class="item">
-                                <div class="menu-item">
-                                    <button class="btn btn-secondary btn-lg" style="width:100%">
-                                        <img src="{{config.wwwroot}}/blocks/course_menu/images/course_syllabus.svg"
-                                             class="btn-icon">
-                                        Course Syllabus
-                                    </button>
-                                    <div class="edit-menu-popover">
-                                        <button class="small-round" type="button" data-toggle="dropdown"
-                                                aria-expanded="false">
-                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">{{#str}}edit, block_course_menu{{/str}}</a>
-                                            <a class="dropdown-item" href="#">{{#str}}delete, block_course_menu{{/str}}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li id="3" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/course_schedule.svg"
-                                         class="btn-icon">
-                                    Course Schedule
-                                </button>
-                            </li>
-                            <li id="4" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/office_hours.svg"
-                                         class="btn-icon">
-                                    Office hours
-                                </button>
-                            </li>
-                            <li id="5" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/asynchronous.svg"
-                                         class="btn-icon">
-                                    Asyncronous - Synchronous
-                                </button>
-                            </li>
-                            <li id="6" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/academic_integrity.svg"
-                                         class="btn-icon">
-                                    Academic Integrity
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <ul class="section">
-                    <li class="section-list-item">
-                        <button class="btn btn-primary btn-lg align-left" style="width:100%">
-                            <img src="{{config.wwwroot}}/blocks/course_menu/images/communicate.svg"
-                                 class="btn-icon">
-                            <span style="font-size: 1.8em">Communicate & Collaborate</span>
-                        </button>
-                    </li>
-                    <li>
-                        <ul class="grid-list">
-                            <li id="7" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/course_announcements.svg"
-                                         class="btn-icon">
-                                    Course Announcements
-                                </button>
-                            </li>
-                            <li id="8" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/student_to_student.svg"
-                                         class="btn-icon">
-                                    Student-to-Student Help Forum
-                                </button>
-                            </li>
-                            <li id="9" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/one_on_one.svg"
-                                         class="btn-icon">
-                                    Chat with Instructor
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
+                        {{/buttons}}
+                    </ul>
+                </li>
+            {{/sections}}
+            <ul>
+            </ul>
     </div>
 </div>

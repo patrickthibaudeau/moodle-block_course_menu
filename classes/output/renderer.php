@@ -51,4 +51,14 @@ class renderer extends \plugin_renderer_base {
         $data = $buttons->export_for_template($this);
         return $this->render_from_template('block_course_menu/button_modal', $data);
     }
+
+    /**
+     *
+     * @param \templatable $branchList
+     * @return type
+     */
+    public function render_icon_bg_color(\templatable $icon_bg_color) {
+        $data = $icon_bg_color->export_for_template($this);
+        return $this->render_from_template('block_course_menu/color_modal', $data);
+    }
 }

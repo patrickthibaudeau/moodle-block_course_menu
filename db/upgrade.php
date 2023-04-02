@@ -247,5 +247,20 @@ function xmldb_block_course_menu_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2023040103, 'course_menu');
     }
 
+    if ($oldversion < 2023040200) {
+
+        // Define field icon_bg_color to be added to block_course_menu_buttons.
+        $table = new xmldb_table('block_course_menu_buttons');
+        $field = new xmldb_field('icon_bg_color', XMLDB_TYPE_CHAR, '10', null, null, null, '#8e8d8d', 'icon');
+
+        // Conditionally launch add field icon_bg_color.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Course_menu savepoint reached.
+        upgrade_block_savepoint(true, 2023040200, 'course_menu');
+    }
+
     return true;
 }

@@ -9,6 +9,10 @@ export const init = () => {
         $('#image-modal').modal('show');
     });
 
+    $('#id_iconbgcolorgroup_btn_icon_bg_color').on('click', function () {
+        $('#color-modal').modal('show');
+    });
+
     $('#id_buttonstylegroup_btn_button_type').on('click', function () {
         $('#button-modal').modal('show');
     });
@@ -33,5 +37,11 @@ export const init = () => {
         let source = $(this).data('style');
         $('#id_buttonstylegroup_button_type').val(source);
         $('#button-modal').modal('hide');
+    });
+
+    $('.pick-color').on('click', function () {
+        let color = $(this).data('color');
+        $('#id_iconbgcolorgroup_icon_bg_color').val(color);
+        $('#color-modal').modal('hide');
     });
 };

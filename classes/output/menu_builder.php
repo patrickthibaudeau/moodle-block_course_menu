@@ -2,6 +2,8 @@
 
 namespace block_course_menu\output;
 
+use block_course_menu\course_menu;
+
 class menu_builder implements \renderable, \templatable
 {
 
@@ -23,14 +25,14 @@ class menu_builder implements \renderable, \templatable
     public function export_for_template(\renderer_base $output)
     {
         global $USER, $CFG, $DB, $COURSE;
-        $block_data = $DB->get_record('block_course_menu', array('id' => $this->id));
-        $langs = get_string_manager()->get_list_of_translations();
+
+        $COURSE_MENU = new course_menu($this->id);
 
         $data = [
             'id' => $this->id,
-            'langs' => $langs,
+            'sections' => $COURSE_MENU->get_menu_data_for_editing(),
         ];
-//        print_object($data);
+        print_object($data);
         return $data;
     }
 
