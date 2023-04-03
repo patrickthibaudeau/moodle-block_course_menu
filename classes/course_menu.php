@@ -207,7 +207,7 @@ class course_menu extends crud
         global $DB, $CFG;
         // get block context
         $context = \context_block::instance($this->instance);
-        $data = [];
+        $section_data = [];
         $section_count = 0;
         $sections = $DB->get_records('block_course_menu_sections', ['coursemenuid' => $this->id], 'sortorder');
         foreach ($sections as $section) {
