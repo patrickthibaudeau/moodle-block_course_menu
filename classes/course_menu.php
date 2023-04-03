@@ -217,7 +217,13 @@ class course_menu extends crud
         $this->timemodified = $timemodified;
     }
 
-    public function get_menu_data_for_editing()
+    /**
+     * Return array of menu data.
+     * @return array
+     * @throws \coding_exception
+     * @throws \dml_exception
+     */
+    public function get_menu_data()
     {
         global $DB, $CFG;
         // get block context
