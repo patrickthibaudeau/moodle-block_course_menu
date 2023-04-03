@@ -13,11 +13,12 @@
  * *************************************************************************
  * ************************************************************************ */
 
-require_once('../../config.php');
+require_once( '../../config.php');
 
 global $CFG, $OUTPUT, $SESSION, $PAGE, $DB, $COURSE, $USER;
 
 $id = optional_param('id', 0, PARAM_INT); //Block Instance ID
+$courseid = optional_param('courseid', 0, PARAM_INT); //Block Instance ID
 
 $context = context_block::instance($id);
 
@@ -32,14 +33,15 @@ $PAGE->set_context($context);
 $PAGE->set_title(get_string('menu_builder', 'block_course_menu'));
 $PAGE->set_heading(get_string('menu_builder', 'block_course_menu'));
 
-$PAGE->requires->js_call_amd('block_course_menu/block', 'init');;
+$PAGE->requires->js_call_amd('block_course_menu/menu_builder', 'init');;
+
 // Get renderable content.
 $output = $PAGE->get_renderer('block_course_menu');
-$menu = new \block_course_menu\output\menu_builder($id);
-$OUTPUT->header();
+$menu = new \block_course_menu\output\menu_builder($id, $courseid);
+echo $OUTPUT->header();
 
-echo $menu->render_menu_builder();
+echo $output->render_menu_builder($menu);
 
-$OUTPUT->footer();
+echo $OUTPUT->footer();
 
 

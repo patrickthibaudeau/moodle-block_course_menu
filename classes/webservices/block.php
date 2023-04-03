@@ -82,4 +82,220 @@ class block_course_menu_external_block extends external_api
         return new external_value(PARAM_INT, 'Boolean');
     }
 
+    // Update button sort order
+
+    /**
+     * Returns description of method parameters
+     * @return external_function_parameters
+     */
+    public static function update_button_order_parameters()
+    {
+        return new external_function_parameters(
+            array(
+                'id' => new external_value(PARAM_INT, 'ID from block_course_menu table', false, 0),
+                'sort_order' => new external_value(PARAM_INT, 'Sort Order',
+                    false, 0)
+            )
+        );
+    }
+
+    /**
+     * @param $id // Block instance ID
+     * @param $value // Whether to show the block in section zero or not
+     * @return bool
+     * @throws invalid_parameter_exception
+     */
+    public static function update_button_order($id, $sort_order)
+    {
+        global $CFG, $USER, $DB;
+        //Parameter validation
+        $params = self::validate_parameters(self::update_button_order_parameters(), array(
+                'id' => $id,
+                'sort_order' => $sort_order
+            )
+        );
+
+        //Context validation
+        $context = context_block::instance($id);
+
+        $DB->update_record('block_course_menu_buttons', [
+                'id' => $id,
+                'sortorder' => $sort_order,
+                'usermodified' => $USER->id,
+                'timemodifed' => time()
+            ]
+        );
+
+        return true;
+    }
+
+    /**
+     * Returns description of method result value
+     * @return external_description
+     */
+    public static function update_button_order_returns()
+    {
+        return new external_value(PARAM_INT, 'Boolean');
+    }
+
+    // Update section sort order
+
+    /**
+     * Returns description of method parameters
+     * @return external_function_parameters
+     */
+    public static function update_section_order_parameters()
+    {
+        return new external_function_parameters(
+            array(
+                'id' => new external_value(PARAM_INT, 'ID from block_course_menu table', false, 0),
+                'sort_order' => new external_value(PARAM_INT, 'Sort Order',
+                    false, 0)
+            )
+        );
+    }
+
+    /**
+     * @param $id // Block instance ID
+     * @param $value // Whether to show the block in section zero or not
+     * @return bool
+     * @throws invalid_parameter_exception
+     */
+    public static function update_section_order($id, $sort_order)
+    {
+        global $CFG, $USER, $DB;
+        //Parameter validation
+        $params = self::validate_parameters(self::update_section_order_parameters(), array(
+                'id' => $id,
+                'sort_order' => $sort_order
+            )
+        );
+
+        //Context validation
+        $context = context_block::instance($id);
+
+        $DB->update_record('block_course_menu_sections', [
+                'id' => $id,
+                'sortorder' => $sort_order,
+                'usermodified' => $USER->id,
+                'timemodifed' => time()
+            ]
+        );
+
+        return true;
+    }
+
+    /**
+     * Returns description of method result value
+     * @return external_description
+     */
+    public static function update_section_order_returns()
+    {
+        return new external_value(PARAM_INT, 'Boolean');
+    }
+
+    // Delete button
+
+    /**
+     * Returns description of method parameters
+     * @return external_function_parameters
+     */
+    public static function delete_button_parameters()
+    {
+        return new external_function_parameters(
+            array(
+                'id' => new external_value(PARAM_INT, 'ID from block_course_menu table', false, 0)
+            )
+        );
+    }
+
+    /**
+     * @param $id // Block instance ID
+     * @param $value // Whether to show the block in section zero or not
+     * @return bool
+     * @throws invalid_parameter_exception
+     */
+    public static function delete_button($id)
+    {
+        global $CFG, $USER, $DB;
+        //Parameter validation
+        $params = self::validate_parameters(self::delete_button_parameters(), array(
+                'id' => $id,
+            )
+        );
+
+        //Context validation
+        $context = context_block::instance($id);
+
+        $DB->delete_records('block_course_menu_buttons', [
+                'id' => $id
+            ]
+        );
+
+        return true;
+    }
+
+    /**
+     * Returns description of method result value
+     * @return external_description
+     */
+    public static function delete_button_returns()
+    {
+        return new external_value(PARAM_INT, 'Boolean');
+    }
+
+    // Delete section
+
+    /**
+     * Returns description of method parameters
+     * @return external_function_parameters
+     */
+    public static function delete_section_parameters()
+    {
+        return new external_function_parameters(
+            array(
+                'id' => new external_value(PARAM_INT, 'ID from block_course_menu table', false, 0)
+            )
+        );
+    }
+
+    /**
+     * @param $id // Block instance ID
+     * @param $value // Whether to show the block in section zero or not
+     * @return bool
+     * @throws invalid_parameter_exception
+     */
+    public static function delete_section($id)
+    {
+        global $CFG, $USER, $DB;
+        //Parameter validation
+        $params = self::validate_parameters(self::delete_section_parameters(), array(
+                'id' => $id,
+            )
+        );
+
+        //Context validation
+        $context = context_block::instance($id);
+
+        $DB->delete_records('block_course_menu_buttons', [
+                'sectionid' => $id
+            ]
+        );
+
+        $DB->delete_records('block_course_menu_sections', [
+                'id' => $id
+            ]
+        );
+
+        return true;
+    }
+
+    /**
+     * Returns description of method result value
+     * @return external_description
+     */
+    public static function delete_section_returns()
+    {
+        return new external_value(PARAM_INT, 'Boolean');
+    }
 }

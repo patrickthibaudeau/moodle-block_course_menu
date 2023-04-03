@@ -17,7 +17,7 @@ export const init = () => {
                     value: 1
                 }
             }]);
-            updateSectionZero[0].done(  function (response) {
+            updateSectionZero[0].done(  function () {
                 location.reload();
             });
         } else {
@@ -28,9 +28,9 @@ export const init = () => {
                     value: 0
                 }
             }]);
-            updateSectionZero[0].done(  function (response) {
+            updateSectionZero[0].done(  function () {
                 location.reload();
             });
         }
-    })
+    });
 };

@@ -25,9 +25,37 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['edit_menu'] = 'Edit menu';
+$string['add_button'] = 'Add button';
+$string['add_section'] = 'Add section';
+$string['background_image'] = 'Background image';
+$string['button_style'] = 'Button style';
+$string['buttons'] = 'Buttons';
 $string['course_menu:edit'] = 'Edit';
+$string['default_images'] = 'Default images';
+$string['delete'] = 'Delete';
+$string['delete_button'] = 'Delete button';
+$string['delete_button_help'] = 'Are you sure you want to delete this button?';
+$string['delete_section'] = 'Delete section';
+$string['delete_section_help'] = 'Are you sure you want to delete this section? All buttons will also be deleted.';
+$string['edit'] = 'Edit';
+$string['edit_menu'] = 'Edit menu';
+$string['edit_section'] = 'Edit section';
+$string['field_required'] = 'This field is required.';
+$string['icon'] = 'Icon';
+$string['icon_bg_color'] = 'Icon Background Color';
+$string['icons'] = 'Icons';
+$string['image'] = 'Image';
+$string['language'] = 'Language';
+$string['link_activity'] = 'Link to activity';
 $string['menu_builder'] = 'Menu Builder';
+$string['menu_button'] = 'Menu Button';
 $string['nopermissions'] = 'You do not have permission to edit this menu.';
 $string['pluginname'] = 'Custom Course Menu';
+$string['return_to_course'] = 'Return to course';
+$string['section'] = 'Section';
+$string['select_module'] = 'Select Module';
 $string['show_in_section_zero'] = 'Show block in section zero';
+$string['show_title'] = 'Show title';
+$string['title'] = 'Title';
+$string['will_not_display'] = 'This button will not be displayed.';
+$string['yes'] = 'Yes';

@@ -2,6 +2,8 @@
 
 namespace block_course_menu\output;
 
+use block_course_menu\course_menu;
+
 class block implements \renderable, \templatable
 {
 
@@ -25,6 +27,7 @@ class block implements \renderable, \templatable
         global $USER, $CFG, $DB, $COURSE;
 
         $context = \context_course::instance($COURSE->id);
+        $COURSE_MENU = new course_menu($this->block_data_id);
 
         // Does the user have permission to edit this block?
         $editor = false;
@@ -38,8 +41,9 @@ class block implements \renderable, \templatable
             'editor' => $editor,
             'show_in_section_zero' => $this->show_in_section_zero,
             'langs' => $langs,
+            'sections' => $COURSE_MENU->get_menu_data(),
         ];
-        print_object($data);
+
         return $data;
     }
 
