@@ -1,5 +1,9 @@
 import $ from 'jquery';
 import jqui from 'jqueryui';
+import ajax from 'core/ajax';
+import ModalFactory from 'core/modal_factory';
+import ModalEvents from 'core/modal_events';
+import {get_string as getString} from 'core/str';
 
 export const init = () => {
     $('button').on('click', function (e) {
@@ -18,16 +22,17 @@ export const init = () => {
             // Loop through list
             for (var i = 0; i < itemOrder.length; i++) {
                 console.log(i + ")" + itemOrder[i]);
-                // Update order for each course
-                // $.ajax({
-                //     url: M.cfg.wwwroot + '/local/yulearn/ajax/sort_section_flow_course.php?id=' + itemOrder[i] + '&sort=' + i,
-                //     type: 'POST',
-                //     success: function(results) {
-                //     },
-                //     error: function(e) {
-                //         alert('An error has occured');
-                //     }
-                // });
+                // Update order for each section
+                let updateSortOrder = ajax.call([{
+                    methodname: 'block_course_menu_update_section_sort_order',
+                    args: {
+                        id: itemOrder[i],
+                        sort_order: i
+                    }
+                }]);
+                updateSortOrder[0].done(  function () {
+                    // Nothing to do here
+                });
             }
         }
     });
@@ -44,16 +49,17 @@ export const init = () => {
             // Loop through list
             for (var i = 0; i < itemOrder.length; i++) {
                 console.log(i + ")" + itemOrder[i]);
-                // Update order for each course
-                // $.ajax({
-                //     url: M.cfg.wwwroot + '/local/yulearn/ajax/sort_section_flow_course.php?id=' + itemOrder[i] + '&sort=' + i,
-                //     type: 'POST',
-                //     success: function(results) {
-                //     },
-                //     error: function(e) {
-                //         alert('An error has occured');
-                //     }
-                // });
+                // Update button sort order
+                let updateSortOrder = ajax.call([{
+                    methodname: 'block_course_menu_update_button_sort_order',
+                    args: {
+                        id: itemOrder[i],
+                        sort_order: i
+                    }
+                }]);
+                updateSortOrder[0].done(  function () {
+                    // Nothing to do here
+                });
             }
         }
     });

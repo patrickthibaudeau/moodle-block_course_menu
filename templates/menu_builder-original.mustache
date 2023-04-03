@@ -81,7 +81,7 @@
 <div class="row mb-3">
     <div class="col">
         <a href="{{config.wwwroot}}/blocks/course_menu/edit_section.php?coursemenuid={{id}}" class="btn btn-outline-primary">
-            {{#str}}add_section, block_course_menu{{/str}}
+        {{#str}}add_section, block_course_menu{{/str}}
         </a>
 
     </div>
@@ -94,9 +94,14 @@
                     <li class="section-list-item">
                         <button type="button" class="btn btn-primary btn-lg" style="width: 100%; min-height:82px;">Will not show</button>
                         <br>
-                        <a href="{{config.wwwroot}}/blocks/course_menu/edit_item.php?sectionid={{sectionid}}"
-                        title="{{#str}}add_menu_item, block_course_menu{{/str}}" class="btn btn-outline-primary btn-sm mt-2">
-                        {{#str}}add_menu_item, block_course_menu{{/str}}
+                        <a href="{{config.wwwroot}}/blocks/course_menu/edit_button.php?sectionid={{sectionid}}"
+                        title="{{#str}}add_button, block_course_menu{{/str}}" class="btn btn-outline-primary btn-sm mt-2">
+                        {{#str}}add_button, block_course_menu{{/str}}
+                        </a>
+
+                        <a href="javscript:void(0);" data-sectionid="{{sectionid}}"
+                           title="{{#str}}delete_section, block_course_menu{{/str}}" class="btn btn-danger btn-sm mt-2">
+                            {{#str}}delete_section, block_course_menu{{/str}}
                         </a>
                     </li>
                     <li>
@@ -115,7 +120,7 @@
 
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{config.wwwroot}}/blocks/course_menu/edit_item.php?id={{id}}&coursemenuid={{id}}">{{#str}}edit, block_course_menu{{/str}}</a>
+                                            <a class="dropdown-item" href="{{config.wwwroot}}/blocks/course_menu/edit_button.php?id={{id}}&coursemenuid={{id}}">{{#str}}edit, block_course_menu{{/str}}</a>
                                             <a class="dropdown-item delete-item" data-id="{{id}}" data-instanceid="{{blockinstanceid}}" href="#">{{#str}}delete, block_course_menu{{/str}}</a>
                                         </div>
                                     </div>

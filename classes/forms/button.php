@@ -50,6 +50,9 @@ class button extends moodleform
         // Buttons
         $buttons = new \block_course_menu\output\buttons($output);
         $mform->addElement('html', $output->render($buttons));
+        // Colors
+        $colors = new \block_course_menu\output\icon_bg_color($output);
+        $mform->addElement('html', $output->render($colors));
 
         $mform->addElement('header', 'general', get_string('general'));
 
@@ -85,7 +88,7 @@ class button extends moodleform
                 'maxfiles' => 1,
                 'accepted_types' => array('web_image')));
 
-        // Icon
+        // Default Images
         $image_array = [];
         $image_array[] =& $mform->createElement('text', 'image', null);
         $image_array[] =& $mform->createElement('button', 'btn_image', get_string('select'));
@@ -98,6 +101,12 @@ class button extends moodleform
         $icon_array[] =& $mform->createElement('button', 'btn_icon', get_string('select'));
         $mform->addGroup($icon_array, 'icongroup', get_string('icon', 'block_course_menu'));
         $mform->setType('icongroup[icon]', PARAM_TEXT);
+
+        $icon_bg_color_array = [];
+        $icon_bg_color_array[] =& $mform->createElement('text', 'icon_bg_color', null);
+        $icon_bg_color_array[] =& $mform->createElement('button', 'btn_icon_bg_color', get_string('select'));
+        $mform->addGroup($icon_bg_color_array, 'iconbgcolorgroup', get_string('icon_bg_color', 'block_course_menu'));
+        $mform->setType('iconbgcolorgroup[icon_bg_color]', PARAM_TEXT);
 
         // Image
         $mform->addElement('filemanager', 'image_filemanager',

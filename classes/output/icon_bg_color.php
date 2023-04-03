@@ -2,15 +2,12 @@
 
 namespace block_course_menu\output;
 
-use block_course_menu\course_menu;
-
-class menu_builder implements \renderable, \templatable
+class icon_bg_color implements \renderable, \templatable
 {
 
 
-    public function __construct($id)
+    public function __construct()
     {
-        $this->id = $id;
 
     }
 
@@ -24,15 +21,9 @@ class menu_builder implements \renderable, \templatable
      */
     public function export_for_template(\renderer_base $output)
     {
-        global $USER, $CFG, $DB, $COURSE;
-
-        $COURSE_MENU = new course_menu($this->id);
 
         $data = [
-            'id' => $this->id,
-            'sections' => $COURSE_MENU->get_menu_data_for_editing(),
         ];
-
         return $data;
     }
 

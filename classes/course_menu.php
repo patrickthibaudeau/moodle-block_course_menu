@@ -202,4 +202,149 @@ class course_menu extends crud
         $this->timemodified = $timemodified;
     }
 
+    public function get_menu_data_for_editing()
+    {
+        global $DB, $CFG;
+        // get block context
+        $context = \context_block::instance($this->instance);
+        $data = [];
+        $section_count = 0;
+        $sections = $DB->get_records('block_course_menu_sections', ['coursemenuid' => $this->id], 'sortorder');
+        foreach ($sections as $section) {
+            $section_data[$section_count] = new \stdClass();
+            $section_data[$section_count]->id = $section->id;
+            $section_data[$section_count]->coursemenuid = $section->coursemenuid;
+            $section_data[$section_count]->title = $section->title;
+            $section_data[$section_count]->display_title = $section->display_title;
+            $section_data[$section_count]->button_type = $section->button_type;
+            // Get background image
+            $section_data[$section_count]->background_image = '';
+            $fs = get_file_storage();
+            $background_files = $fs->get_area_files(
+                $context->id,
+                'block_course_menu',
+                'section_background',
+                $section->id);
+
+            foreach ($background_files as $file) {
+                $filename = $file->get_filename();
+                if ($filename  && $filename != '.') {
+                    $url = $CFG->wwwroot . '/pluginfile.php/' .
+                        $context->id .
+                        '/block/course_menu/section_background/' .
+                        $file->get_itemid() .
+                        $file->get_filepath() .
+                        '/' . $filename;
+
+                    $section_data[$section_count]->background_image = $url;
+                }
+            }
+
+            $image_files = $fs->get_area_files(
+                $context->id,
+                'block_course_menu',
+                'section_image',
+                $section->id);
+
+            $section_data[$section_count]->image = '';
+            $section_data[$section_count]->icon = '';
+            foreach ($background_files as $file) {
+                $filename = $file->get_filename();
+                if ($filename  && $filename != '.') {
+                    $url = $CFG->wwwroot . '/pluginfile.php/' .
+                        $context->id .
+                        '/block/course_menu/section_image/' .
+                        $file->get_itemid() .
+                        $file->get_filepath() .
+                        '/' . $filename;
+
+                    $section_data[$section_count]->image = $url;
+                }
+            }
+
+            if (!$section_data[$section_count]->image) {
+                if (!$section->icon) {
+                    $section_data[$section_count]->image = $CFG->wwwroot . '/blocks/course_menu/' . $section->image;
+                } else {
+                    $section_data[$section_count]->icon = $section->icon;
+                }
+            }
+
+            // Get buttons
+            $buttons = [];
+            $count = 0;
+            $buttons_data = $DB->get_records('block_course_menu_buttons', ['sectionid' => $section->id], 'sortorder');
+            foreach ($buttons_data as $button) {
+                $buttons[$count]['id'] = $button->id;
+                $buttons[$count]['coursemenuidid'] = $this->id;
+                $buttons[$count]['sectionid'] = $button->sectionid;
+                $buttons[$count]['title'] = $button->title;
+                $buttons[$count]['display_title'] = $button->display_title;
+                $buttons[$count]['button_type'] = $button->button_type;
+                $buttons[$count]['cmid'] = $button->cmid;
+                $buttons[$count]['mod_name'] = $button->mod_name;
+                // Get background image
+                $buttons[$count]['background_image'] = '';
+                $fs = get_file_storage();
+                $background_files = $fs->get_area_files(
+                    $context->id,
+                    'block_course_menu',
+                    'button_background',
+                    $section->id);
+
+                foreach ($background_files as $file) {
+                    $filename = $file->get_filename();
+                    if ($filename  && $filename != '.') {
+                        $url = $CFG->wwwroot . '/pluginfile.php/' .
+                            $context->id .
+                            '/block/course_menu/button_background/' .
+                            $file->get_itemid() .
+                            $file->get_filepath() .
+                            '/' . $filename;
+
+                        $buttons[$count]['background_image'] = $url;
+                    }
+                }
+
+                $buttons[$count]['image'] = '';
+                $buttons[$count]['icon'] = '';
+
+                $image_files = $fs->get_area_files(
+                    $context->id,
+                    'block_course_menu',
+                    'button_image',
+                    $section->id);
+
+                foreach ($image_files as $file) {
+                    $filename = $file->get_filename();
+                    if ($filename  && $filename != '.') {
+                        $url = $CFG->wwwroot . '/pluginfile.php/' .
+                            $context->id .
+                            '/block/course_menu/button_image/' .
+                            $file->get_itemid() .
+                            $file->get_filepath() .
+                            '/' . $filename;
+
+                        $buttons[$count]['image'] = $url;
+                    }
+
+                }
+
+                if (!$buttons[$count]['image']) {
+                    if (!$button->icon) {
+                        $buttons[$count]['image'] = $CFG->wwwroot . '/blocks/course_menu/' . $button->image;
+                    } else {
+                        $buttons[$count]['icon']  = $button->icon;
+                    }
+                }
+                $buttons[$count]['icon_bg_color']  = $button->icon_bg_color;
+                $count++;
+            }
+            $section_data[$section_count]->buttons = $buttons;
+            $section_count++;
+        }
+
+        return $section_data;
+    }
+
 }
