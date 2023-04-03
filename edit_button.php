@@ -86,10 +86,12 @@ if ($mform->is_cancelled()) {
     $data->image = $data->imagegroup['image'];
     $data->icon = $data->icongroup['icon'];
     $data->icon_bg_color = $data->iconbgcolorgroup['icon_bg_color'];
+    $data->button_type = $data->buttonstylegroup['button_type'];
     // No longer these fields
     unset($data->imagegroup);
     unset($data->icongroup);
     unset($data->iconbgcolorgroup);
+    unset($data->buttonstylegroup);
 
     // Split module into proper fields
     $module = explode('|', $data->module);

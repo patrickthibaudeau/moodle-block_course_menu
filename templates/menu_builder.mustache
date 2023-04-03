@@ -37,7 +37,7 @@
     }
 
     .btn-image {
-        width: 60;
+        width: 60px;
         hieght: auto;
         margin-right: 10px;
     }
@@ -106,6 +106,11 @@
         {{#str}}add_section, block_course_menu{{/str}}
         </a>
 
+        <a href="{{config.wwwroot}}/course/view.php?id={{courseid}}" class="btn
+        btn-outline-primary">
+        {{#str}}return_to_course, block_course_menu{{/str}}
+        </a>
+
     </div>
 </div>
 <div class="row">
@@ -115,7 +120,16 @@
             <li>
             <ul class="section">
                 <li class="section-list-item">
-                    <button type="button" class="btn btn-primary btn-lg" style="width: 100%; min-height:82px;">
+                    <button type="button" class="btn {{button_type}} btn-lg d-flex justify-content-left align-items-center" style="width: 100%; min-height:82px;">
+                        {{#image}}
+                            <img src="{{image}}" class="img-fluid btn-image">
+                        {{/image}}
+                        {{#icon}}
+                            <div class="rescircle d-flex justify-content-center align-items-center"
+                                 style="background-color: {{icon_bg_color}}; color: #fff;">
+                                <i class="fa {{icon}}"></i>
+                            </div>
+                        {{/icon}}
                         {{#display_title}}
                             {{title}}
                         {{/display_title}}
@@ -128,6 +142,10 @@
                     &coursemenuid={{coursemenuid}}"
                     title="{{#str}}add_button, block_course_menu{{/str}}" class="btn btn-outline-primary btn-sm mt-2">
                     {{#str}}add_button, block_course_menu{{/str}}
+                    </a>
+
+                    <a href="{{config.wwwroot}}/blocks/course_menu/edit_section.php?id={{id}}&coursemenuid={{coursemenuid}}" class="btn btn-outline-primary btn-sm mt-2">
+                    {{#str}}edit_section, block_course_menu{{/str}}
                     </a>
 
                     <a href="javscript:void(0);" data-sectionid="{{id}}"

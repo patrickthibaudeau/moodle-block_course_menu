@@ -30,6 +30,12 @@ class course_menu extends crud
      *
      * @var int
      */
+    private $courseid;
+
+    /**
+     *
+     * @var int
+     */
     private $section_zero;
 
     /**
@@ -92,6 +98,7 @@ class course_menu extends crud
         }
 
         $this->instance = $result->instance ?? 0;
+        $this->courseid = $result->courseid ?? 0;
         $this->section_zero = $result->section_zero ?? 0;
         $this->usermodified = $result->usermodified ?? 0;
         $this->timecreated = $result->timecreated ?? 0;
@@ -120,6 +127,14 @@ class course_menu extends crud
     public function get_instance()
     {
         return $this->instance;
+    }
+
+    /**
+     * @return instance - bigint (18)
+     */
+    public function get_courseid()
+    {
+        return $this->courseid;
     }
 
     /**
@@ -228,7 +243,7 @@ class course_menu extends crud
 
             foreach ($background_files as $file) {
                 $filename = $file->get_filename();
-                if ($filename  && $filename != '.') {
+                if ($filename && $filename != '.') {
                     $url = $CFG->wwwroot . '/pluginfile.php/' .
                         $context->id .
                         '/block/course_menu/section_background/' .
@@ -248,9 +263,10 @@ class course_menu extends crud
 
             $section_data[$section_count]->image = '';
             $section_data[$section_count]->icon = '';
-            foreach ($background_files as $file) {
+            foreach ($image_files as $file) {
                 $filename = $file->get_filename();
-                if ($filename  && $filename != '.') {
+
+                if (trim($filename) && trim($filename) != '.') {
                     $url = $CFG->wwwroot . '/pluginfile.php/' .
                         $context->id .
                         '/block/course_menu/section_image/' .
@@ -261,10 +277,11 @@ class course_menu extends crud
                     $section_data[$section_count]->image = $url;
                 }
             }
-
             if (!$section_data[$section_count]->image) {
                 if (!$section->icon) {
-                    $section_data[$section_count]->image = $CFG->wwwroot . '/blocks/course_menu/' . $section->image;
+                    if ($section->image) {
+                        $section_data[$section_count]->image = $CFG->wwwroot . '/blocks/course_menu/' . $section->image;
+                    }
                 } else {
                     $section_data[$section_count]->icon = $section->icon;
                 }
@@ -294,7 +311,7 @@ class course_menu extends crud
 
                 foreach ($background_files as $file) {
                     $filename = $file->get_filename();
-                    if ($filename  && $filename != '.') {
+                    if ($filename && $filename != '.') {
                         $url = $CFG->wwwroot . '/pluginfile.php/' .
                             $context->id .
                             '/block/course_menu/button_background/' .
@@ -317,7 +334,7 @@ class course_menu extends crud
 
                 foreach ($image_files as $file) {
                     $filename = $file->get_filename();
-                    if ($filename  && $filename != '.') {
+                    if ($filename && $filename != '.') {
                         $url = $CFG->wwwroot . '/pluginfile.php/' .
                             $context->id .
                             '/block/course_menu/button_image/' .
@@ -332,12 +349,14 @@ class course_menu extends crud
 
                 if (!$buttons[$count]['image']) {
                     if (!$button->icon) {
-                        $buttons[$count]['image'] = $CFG->wwwroot . '/blocks/course_menu/' . $button->image;
+                        if ($button->image) {
+                            $buttons[$count]['image'] = $CFG->wwwroot . '/blocks/course_menu/' . $button->image;
+                        }
                     } else {
-                        $buttons[$count]['icon']  = $button->icon;
+                        $buttons[$count]['icon'] = $button->icon;
                     }
                 }
-                $buttons[$count]['icon_bg_color']  = $button->icon_bg_color;
+                $buttons[$count]['icon_bg_color'] = $button->icon_bg_color;
                 $count++;
             }
             $section_data[$section_count]->buttons = $buttons;

@@ -79,9 +79,11 @@ if ($mform->is_cancelled()) {
     }
     $data->image = $data->imagegroup['image'];
     $data->icon = $data->icongroup['icon'];
+    $data->button_type = $data->buttonstylegroup['button_type'];
     // No longer these fields
     unset($data->imagegroup);
     unset($data->icongroup);
+    unset($data->buttonstylegroup);
 
     if ($data->id) {
         $id = $data->id;

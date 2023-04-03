@@ -262,5 +262,20 @@ function xmldb_block_course_menu_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2023040200, 'course_menu');
     }
 
+    if ($oldversion < 2023040204) {
+
+        // Define field courseid to be added to block_course_menu.
+        $table = new xmldb_table('block_course_menu');
+        $field = new xmldb_field('courseid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'instance');
+
+        // Conditionally launch add field courseid.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Course_menu savepoint reached.
+        upgrade_block_savepoint(true, 2023040204, 'course_menu');
+    }
+
     return true;
 }

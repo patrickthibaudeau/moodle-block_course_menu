@@ -37,7 +37,7 @@ class block_course_menu extends block_base {
      * @return stdClass The block contents.
      */
     public function get_content() {
-        global $DB, $USER, $PAGE;
+        global $DB, $USER, $PAGE, $COURSE;
 
         $show_in_section_zero = false;
         // Get block data
@@ -46,6 +46,7 @@ class block_course_menu extends block_base {
         if (!$block_data) {
             $id = $DB->insert_record('block_course_menu', array(
                 'instance' => $this->instance->id,
+                'courseid' => $COURSE->id,
                 'usermodified' => $USER->id,
                 'timecreated' => time(),
                 'timemodified' => time()));

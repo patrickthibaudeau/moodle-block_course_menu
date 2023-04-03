@@ -11,7 +11,6 @@ class menu_builder implements \renderable, \templatable
     public function __construct($id)
     {
         $this->id = $id;
-
     }
 
     /**
@@ -30,9 +29,10 @@ class menu_builder implements \renderable, \templatable
 
         $data = [
             'id' => $this->id,
+            'courseid' => $COURSE_MENU->get_courseid(),
             'sections' => $COURSE_MENU->get_menu_data_for_editing(),
         ];
-
+//print_object($data);
         return $data;
     }
 
