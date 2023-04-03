@@ -120,7 +120,8 @@
             <li>
             <ul class="section">
                 <li class="section-list-item">
-                    <button type="button" class="btn {{button_type}} btn-lg d-flex justify-content-left align-items-center" style="width: 100%; min-height:82px;">
+                    <button type="button" class="btn {{^background_image}}{{button_type}}{{/background_image}} btn-lg d-flex justify-content-left align-items-center"
+                            style="width: 100%; min-height:82px; {{#background_image}}background-image: {{background_image}};{{/background_image}}">
                         {{#image}}
                             <img src="{{image}}" class="img-fluid btn-image">
                         {{/image}}
