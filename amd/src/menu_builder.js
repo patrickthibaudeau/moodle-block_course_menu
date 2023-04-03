@@ -30,7 +30,7 @@ export const init = () => {
                         sort_order: i
                     }
                 }]);
-                updateSortOrder[0].done(  function () {
+                updateSortOrder[0].done(function () {
                     // Nothing to do here
                 });
             }
@@ -57,11 +57,90 @@ export const init = () => {
                         sort_order: i
                     }
                 }]);
-                updateSortOrder[0].done(  function () {
+                updateSortOrder[0].done(function () {
                     // Nothing to do here
                 });
             }
         }
     });
 
+    // Delete button
+    $('.delete-item').on('click', function () {
+        let id = $(this).data('id');
+
+        ModalFactory.create({
+            type: ModalFactory.types.SAVE_CANCEL,
+            title: getString('delete_button', 'block_course_menu'),
+            body: getString('delete_button_help', 'block_course_menu')
+        }).then(function (modal) {
+
+            modal.setSaveButtonText(getString('yes', 'block_course_menu'));
+
+            modal.getRoot().on(ModalEvents.save, function () {
+                var deleteButton = ajax.call([{
+                    methodname: 'block_course_menu_delete_button',
+                    args: {
+                        id: id
+                    }
+                }]);
+
+                deleteButton[0].done(function (response) {
+                    return location.reload();
+                }).fail(function (ex) {
+                    alert('An error has occurred. The record was not saved');
+                });
+            });
+
+            console.log(ModalEvents);
+            modal.getRoot().on(ModalEvents.cancel, function () {
+                // CLose modal
+            });
+
+            /**
+             * Open the modal and run some jQuery
+             * for the campusLanguages so that select2 works
+             */
+            modal.show();
+        });
+    });
+
+    // Delete section
+    $('.delete-section').on('click', function () {
+        let id = $(this).data('sectionid');
+
+        ModalFactory.create({
+            type: ModalFactory.types.SAVE_CANCEL,
+            title: getString('delete_section', 'block_course_menu'),
+            body: getString('delete_section_help', 'block_course_menu')
+        }).then(function (modal) {
+
+            modal.setSaveButtonText(getString('yes', 'block_course_menu'));
+
+            modal.getRoot().on(ModalEvents.save, function () {
+                var deleteSection = ajax.call([{
+                    methodname: 'block_course_menu_delete_section',
+                    args: {
+                        id: id
+                    }
+                }]);
+
+                deleteSection[0].done(function (response) {
+                    return location.reload();
+                }).fail(function (ex) {
+                    alert('An error has occurred. The record was not saved');
+                });
+            });
+
+            console.log(ModalEvents);
+            modal.getRoot().on(ModalEvents.cancel, function () {
+                // Close Modal
+            });
+
+            /**
+             * Open the modal and run some jQuery
+             * for the campusLanguages so that select2 works
+             */
+            modal.show();
+        });
+    });
 };
