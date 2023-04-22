@@ -4,7 +4,7 @@ import ajax from 'core/ajax';
 // Move block_course_menu to the end of section 0
 export const init = () => {
     if ($('#show_in_section_zero').val() == 1) {
-        $('.block_course_menu').detach().appendTo('#coursecontentcollapse0');
+        $('.block_course_menu').detach().prependTo('#coursecontentcollapse0');
     }
 
     $('#course-menu-show-section-zero').on('click',function() {

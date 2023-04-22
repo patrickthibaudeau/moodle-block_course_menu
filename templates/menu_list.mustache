@@ -2,16 +2,22 @@
     .sections {
         list-style: none;
         width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
     }
 
     .section {
         list-style: none;
         width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
     }
 
     .grid-list {
         list-style: none;
         width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
     }
 
     li.item {
@@ -19,16 +25,46 @@
         width: 100% !important;
     }
 
+    .buttons-state-highlight {
+        border: medium dotted blue;
+        border-radius: 10px;
+        visibility: visible !important;
+    }
 
+    .sections-state-highlight {
+        border: 1px solid red;
+        visibility: visible !important;
+    }
 
-    .btn-icon {
-        width: 30px;
+    .btn-image {
+        width: 60px;
         hieght: auto;
         margin-right: 10px;
     }
 
+    .btn-icon {
+        width: 2em;
+        height: 2em;
+        margin-right: 10px;
+
+        border-radius: 50%;
+    }
+
+    .rescircle {
+        width: 90%; /* adjust this value to change the size of the circle */
+        border-radius: 50%;
+        background: #b5b5b5;
+        font-size: 3.0em;
+    }
+
+    .rescircle:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%; /* this value matches the width to keep the circle shape */
+    }
+
     .btn-lg {
-        border-radius: 10px !important;
+        border-radius: 20px !important;
     }
 
     .btn-secondary {
@@ -40,107 +76,75 @@
 
     .section-list-item {
         padding-left: 25px;
-        padding-right:10px
+        padding-right: 10px
     }
 
     .align-left {
         text-align: left !important;
     }
 
+    .small-round {
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        border-style: solid;
+        border-width: thin;
+        border-color: #000;
+    }
+
+    .menu-item .edit-menu-popover {
+        position: relative;
+        top: -35px;
+        left: 90%;
+    }
+
 </style>
-<div class="row">
-    <div class="col-md-12 ">
-        <ul class="sections">
-            <li>
-                <ul class="section">
-                    <li class="section-list-item">
-
-                    </li>
-                    <li>
-                        <ul class="grid-list">
-                            <li id="1" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/teaching_team.svg"
-                                         class="btn-icon">
-                                    Teaching Team
-                                </button>
-                            </li>
-                            <li id="2" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/course_syllabus.svg"
-                                         class="btn-icon">
-                                    Course Syllabus
-                                </button>
-                            </li>
-                            <li id="3" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/course_schedule.svg"
-                                         class="btn-icon">
-                                    Course Schedule
-                                </button>
-                            </li>
-                            <li id="4" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/office_hours.svg"
-                                         class="btn-icon">
-                                    Office hours
-                                </button>
-                            </li>
-                            <li id="5" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/asynchronous.svg"
-                                         class="btn-icon">
-                                    Asyncronous - Synchronous
-                                </button>
-                            </li>
-                            <li id="6" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/academic_integrity.svg"
-                                         class="btn-icon">
-                                    Academic Integrity
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <ul class="section">
-                    <li class="section-list-item">
-                        <button class="btn btn-primary btn-lg align-left" style="width:100%">
-                            <img src="{{config.wwwroot}}/blocks/course_menu/images/communicate.svg"
-                                 class="btn-icon">
-                            <span style="font-size: 0.8em">Communicate & Collaborate</span>
-                        </button>
-                    </li>
-                    <li>
-                        <ul class="grid-list">
-                            <li id="7" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/course_announcements.svg"
-                                         class="btn-icon">
-                                    Course Announcements
-                                </button>
-                            </li>
-                            <li id="8" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/student_to_student.svg"
-                                         class="btn-icon">
-                                    Student-to-Student Help Forum
-                                </button>
-                            </li>
-                            <li id="9" class="item">
-                                <button class="btn btn-secondary btn-lg" style="width:100%">
-                                    <img src="{{config.wwwroot}}/blocks/course_menu/images/one_on_one.svg"
-                                         class="btn-icon">
-                                    Chat with Instructor
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
+{{#sections}}
+    {{#display_title}}
+        <div class="row mb-3">
+            <div class="col-md-12 col-sm-12">
+                <button type="button"
+                        class="btn {{^background_image}}{{button_type}}{{/background_image}} btn-lg d-flex justify-content-left align-items-center"
+                        style="width: 100%; min-height:82px; {{#background_image}}background-image: {{background_image}};{{/background_image}}">
+                    {{#image}}
+                        <img src="{{image}}" class="img-fluid btn-image">
+                    {{/image}}
+                    {{#icon}}
+                        <div class="rescircle d-flex justify-content-center align-items-center"
+                             style="background-color: {{icon_bg_color}}; color: #fff;">
+                            <i class="fa {{icon}}"></i>
+                        </div>
+                    {{/icon}}
+                    {{title}}
+                </button>
+            </div>
+        </div>
+    {{/display_title}}
+    <div class="row mb-3">
+        {{#buttons}}
+            <div class="col-md-12 col-sm-12 mt-3">
+                <a href="{{config.wwwroot}}/mod/{{mod_name}}/view.php?id={{cmid}}" class="btn {{button_type}} btn-lg " style="width:100%">
+                <div class="row">
+                    <div class="col-4 d-flex justify-content-center align-items-center">
+                        {{#image}}
+                            <img src="{{image}}" class="btn-image">
+                        {{/image}}
+                        {{#icon}}
+                            <div class="rescircle d-flex justify-content-center align-items-center"
+                                 style="background-color: {{icon_bg_color}}; color: #fff;">
+                                <i class="fa {{icon}}"></i>
+                            </div>
+                        {{/icon}}
+                    </div>
+                    <div class="col-8 d-flex justify-content-left align-items-center">
+                        {{#display_title}}
+                            {{title}}
+                        {{/display_title}}
+                    </div>
+                </div>
+                </a>
+            </div>
+        {{/buttons}}
     </div>
-</div>
+{{/sections}}
+<hr>
