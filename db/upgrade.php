@@ -304,6 +304,29 @@ function xmldb_block_course_menu_upgrade($oldversion) {
             $dbman->add_index($table, $index);
         }
 
+        // Update existing menu items
+        $sql = "SELECT 
+             cm.id as coursemenuid,
+            cms.id as coursemenusectionid,
+            cms.sortorder as sectionorder
+        FROM 
+            {block_course_menu} cm Inner Join
+            {block_course_menu_sections} cms On cm.id = cms.coursemenuid";
+        $menus = $DB->get_recordset_sql($sql, []);
+        foreach ($menus as $menu) {
+            if ($buttons = $DB->get_records('block_course_menu_buttons',['sectionorder' => $menu->coursemenusectionid])) {
+                foreach($buttons as $button) {
+
+                    $params = [
+                        'id' => $button->id,
+                        'coursemenuid' => $menu->coursemenuid,
+                        'sectionorder' => $menu->sectionorder,
+                    ];
+                    $DB->update_record('block_course_menu_buttons', $params);
+                }
+            }
+        }
+
         // Course_menu savepoint reached.
         upgrade_block_savepoint(true, 2023042202, 'course_menu');
     }
