@@ -234,6 +234,7 @@ class course_menu extends crud
         foreach ($sections as $section) {
             $section_data[$section_count] = new \stdClass();
             $section_data[$section_count]->id = $section->id;
+            $section_data[$section_count]->sortorder = $section->sortorder;
             $section_data[$section_count]->coursemenuid = $section->coursemenuid;
             $section_data[$section_count]->title = $section->title;
             $section_data[$section_count]->display_title = $section->display_title;
@@ -296,11 +297,15 @@ class course_menu extends crud
             // Get buttons
             $buttons = [];
             $count = 0;
-            $buttons_data = $DB->get_records('block_course_menu_buttons', ['sectionid' => $section->id], 'sortorder');
+            $buttons_data = $DB->get_records('block_course_menu_buttons',
+                [
+                    'coursemenuid' => $this->id,
+                    'sectionorder' => $section->sortorder,
+                    ], 'sortorder');
             foreach ($buttons_data as $button) {
                 $buttons[$count]['id'] = $button->id;
                 $buttons[$count]['coursemenuidid'] = $this->id;
-                $buttons[$count]['sectionid'] = $button->sectionid;
+                $buttons[$count]['sectionorder'] = $button->sectionorder;
                 $buttons[$count]['title'] = $button->title;
                 $buttons[$count]['display_title'] = $button->display_title;
                 $buttons[$count]['button_type'] = $button->button_type;

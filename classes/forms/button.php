@@ -38,8 +38,8 @@ class button extends moodleform
         $mform->setType("id", PARAM_INT);
         $mform->addElement("hidden", "coursemenuid");
         $mform->setType("coursemenuid", PARAM_INT);
-        $mform->addElement("hidden", "sectionid");
-        $mform->setType("sectionid", PARAM_INT);
+        $mform->addElement("hidden", "sectionorder");
+        $mform->setType("sectionorder", PARAM_INT);
         // Get renderable content.
         $output = $PAGE->get_renderer('block_course_menu');
         $icons = new \block_course_menu\output\icons($output);

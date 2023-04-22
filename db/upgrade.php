@@ -277,5 +277,35 @@ function xmldb_block_course_menu_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2023040204, 'course_menu');
     }
 
+    if ($oldversion < 2023042202) {
+
+        // Define field coursemenuid to be added to block_course_menu_buttons.
+        $table = new xmldb_table('block_course_menu_buttons');
+        $field = new xmldb_field('coursemenuid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'id');
+
+        // Conditionally launch add field coursemenuid.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Rename field sectionid on table block_course_menu_buttons to NEWNAMEGOESHERE.
+        $table = new xmldb_table('block_course_menu_buttons');
+        $field = new xmldb_field('sectionid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'id');
+
+        // Launch rename field sectionid.
+        $dbman->rename_field($table, $field, 'sectionorder');
+
+        // Define index coursemenu_sectionorder_idx (not unique) to be added to block_course_menu_buttons.
+        $table = new xmldb_table('block_course_menu_buttons');
+        $index = new xmldb_index('coursemenu_sectionorder_idx', XMLDB_INDEX_NOTUNIQUE, ['coursemenuid', 'sectionorder']);
+
+        // Conditionally launch add index coursemenu_sectionorder_idx.
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+
+        // Course_menu savepoint reached.
+        upgrade_block_savepoint(true, 2023042202, 'course_menu');
+    }
     return true;
 }
