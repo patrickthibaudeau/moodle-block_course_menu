@@ -32,10 +32,10 @@ $sql = "SELECT
             cms.sortorder as sectionorder
         FROM 
             {block_course_menu} cm Inner Join
-            {block_course_menu_sections} cms On cm.id = cms.coursemenuid";
+            {block_course_menu_section} cms On cm.id = cms.coursemenuid";
 $menus = $DB->get_recordset_sql($sql, []);
 foreach ($menus as $menu) {
-    if ($buttons = $DB->get_records('block_course_menu_buttons',['sectionorder' => $menu->coursemenusectionid])) {
+    if ($buttons = $DB->get_records('block_course_menu_button',['sectionorder' => $menu->coursemenusectionid])) {
         foreach($buttons as $button) {
 
             $params = [
@@ -43,7 +43,7 @@ foreach ($menus as $menu) {
                 'coursemenuid' => $menu->coursemenuid,
                 'sectionorder' => $menu->sectionorder,
             ];
-            $DB->update_record('block_course_menu_buttons', $params);
+            $DB->update_record('block_course_menu_button', $params);
         }
     }
 }

@@ -20,7 +20,7 @@ $PAGE->set_heading(get_string('section', 'block_course_menu'));
 $PAGE->requires->js_call_amd('block_course_menu/section', 'init');;
 
 if ($id) {
-    $formdata = $DB->get_record('block_course_menu_sections', ['id' => $id]);
+    $formdata = $DB->get_record('block_course_menu_section', ['id' => $id]);
     $formdata->instanceid = $COURSE_MENU->get_instance();
     $formdata->buttonstylegroup['button_type'] = $formdata->button_type;
     $formdata->imagegroup['image'] = $formdata->image;
@@ -74,7 +74,7 @@ if ($mform->is_cancelled()) {
     redirect($CFG->wwwroot . '/blocks/course_menu/menu_builder.php?id=' . $coursemenuid);
 } else if ($data = $mform->get_data()) {
     $sortorder = 1;
-    if ($sections = $DB->count_records('block_course_menu_sections', ['coursemenuid' => $coursemenuid])) {
+    if ($sections = $DB->count_records('block_course_menu_section', ['coursemenuid' => $coursemenuid])) {
         $sortorder = $sections + 1;
     }
     $data->image = $data->imagegroup['image'];
@@ -89,13 +89,13 @@ if ($mform->is_cancelled()) {
         $id = $data->id;
         $data->timemodified = time();
         $data->usermodified = $USER->id;
-        $DB->update_record('block_course_menu_sections', $data);
+        $DB->update_record('block_course_menu_section', $data);
     } else {
         $data->sortorder = $sortorder;
         $data->timecreated = time();
         $data->timemodified = time();
         $data->usermodified = $USER->id;
-        $id = $DB->insert_record('block_course_menu_sections', $data);
+        $id = $DB->insert_record('block_course_menu_section', $data);
     }
 
     file_save_draft_area_files(

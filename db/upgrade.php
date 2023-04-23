@@ -64,10 +64,10 @@ function xmldb_block_course_menu_upgrade($oldversion) {
 
     if ($oldversion < 2023032700) {
 
-        // Define table block_course_menu_sections to be created.
-        $table = new xmldb_table('block_course_menu_sections');
+        // Define table block_course_menu_section to be created.
+        $table = new xmldb_table('block_course_menu_section');
 
-        // Adding fields to table block_course_menu_sections.
+        // Adding fields to table block_course_menu_section.
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
         $table->add_field('instanceid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0');
         $table->add_field('lang', XMLDB_TYPE_CHAR, '6', null, null, null, 'en');
@@ -81,19 +81,19 @@ function xmldb_block_course_menu_upgrade($oldversion) {
         $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
         $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
 
-        // Adding keys to table block_course_menu_sections.
+        // Adding keys to table block_course_menu_section.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
         $table->add_key('usermodified', XMLDB_KEY_FOREIGN, ['usermodified'], 'user', ['id']);
 
-        // Conditionally launch create table for block_course_menu_sections.
+        // Conditionally launch create table for block_course_menu_section.
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
 
-        // Define table block_course_menu_buttons to be created.
-        $table = new xmldb_table('block_course_menu_buttons');
+        // Define table block_course_menu_button to be created.
+        $table = new xmldb_table('block_course_menu_button');
 
-        // Adding fields to table block_course_menu_buttons.
+        // Adding fields to table block_course_menu_button.
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
         $table->add_field('sectionid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0');
         $table->add_field('lang', XMLDB_TYPE_CHAR, '6', null, null, null, 'en');
@@ -109,11 +109,11 @@ function xmldb_block_course_menu_upgrade($oldversion) {
         $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
         $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
 
-        // Adding keys to table block_course_menu_buttons.
+        // Adding keys to table block_course_menu_button.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
         $table->add_key('usermodified', XMLDB_KEY_FOREIGN, ['usermodified'], 'user', ['id']);
 
-        // Conditionally launch create table for block_course_menu_buttons.
+        // Conditionally launch create table for block_course_menu_button.
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
@@ -124,8 +124,8 @@ function xmldb_block_course_menu_upgrade($oldversion) {
 
     if ($oldversion < 2023033002) {
 
-        // Define field display_title to be added to block_course_menu_sections.
-        $table = new xmldb_table('block_course_menu_sections');
+        // Define field display_title to be added to block_course_menu_section.
+        $table = new xmldb_table('block_course_menu_section');
         $field = new xmldb_field('display_title', XMLDB_TYPE_INTEGER, '1', null, null, null, '1', 'title');
 
         // Conditionally launch add field display_title.
@@ -133,8 +133,8 @@ function xmldb_block_course_menu_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // Define field use_image to be dropped from block_course_menu_sections.
-        $table = new xmldb_table('block_course_menu_sections');
+        // Define field use_image to be dropped from block_course_menu_section.
+        $table = new xmldb_table('block_course_menu_section');
         $field = new xmldb_field('use_image');
 
         // Conditionally launch drop field use_image.
@@ -148,8 +148,8 @@ function xmldb_block_course_menu_upgrade($oldversion) {
 
     if ($oldversion < 2023033003) {
 
-        // Define field image to be added to block_course_menu_sections.
-        $table = new xmldb_table('block_course_menu_sections');
+        // Define field image to be added to block_course_menu_section.
+        $table = new xmldb_table('block_course_menu_section');
         $field = new xmldb_field('image', XMLDB_TYPE_CHAR, '100', null, null, null, null, 'icon');
 
         // Conditionally launch add field image.
@@ -163,8 +163,8 @@ function xmldb_block_course_menu_upgrade($oldversion) {
 
     if ($oldversion < 2023033100) {
 
-        // Rename field instanceid on table block_course_menu_sections to NEWNAMEGOESHERE.
-        $table = new xmldb_table('block_course_menu_sections');
+        // Rename field instanceid on table block_course_menu_section to NEWNAMEGOESHERE.
+        $table = new xmldb_table('block_course_menu_section');
         $field = new xmldb_field('instanceid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'id');
 
         // Launch rename field instanceid.
@@ -176,8 +176,8 @@ function xmldb_block_course_menu_upgrade($oldversion) {
 
     if ($oldversion < 2023040100) {
 
-        // Define field button_type to be added to block_course_menu_sections.
-        $table = new xmldb_table('block_course_menu_sections');
+        // Define field button_type to be added to block_course_menu_section.
+        $table = new xmldb_table('block_course_menu_section');
         $field = new xmldb_field('button_type', XMLDB_TYPE_CHAR, '50', null, null, null, 'btn-primary', 'display_title');
 
         // Conditionally launch add field button_type.
@@ -191,18 +191,18 @@ function xmldb_block_course_menu_upgrade($oldversion) {
 
     if ($oldversion < 2023040102) {
 
-        // Define table block_course_menu_buttons to be dropped.
-        $table = new xmldb_table('block_course_menu_buttons');
+        // Define table block_course_menu_button to be dropped.
+        $table = new xmldb_table('block_course_menu_button');
 
-        // Conditionally launch drop table for block_course_menu_buttons.
+        // Conditionally launch drop table for block_course_menu_button.
         if ($dbman->table_exists($table)) {
             $dbman->drop_table($table);
         }
 
-        // Define table block_course_menu_buttons to be created.
-        $table = new xmldb_table('block_course_menu_buttons');
+        // Define table block_course_menu_button to be created.
+        $table = new xmldb_table('block_course_menu_button');
 
-        // Adding fields to table block_course_menu_buttons.
+        // Adding fields to table block_course_menu_button.
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
         $table->add_field('sectionid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0');
         $table->add_field('lang', XMLDB_TYPE_CHAR, '6', null, null, null, 'en');
@@ -219,11 +219,11 @@ function xmldb_block_course_menu_upgrade($oldversion) {
         $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
         $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
 
-        // Adding keys to table block_course_menu_buttons.
+        // Adding keys to table block_course_menu_button.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
         $table->add_key('usermodified', XMLDB_KEY_FOREIGN, ['usermodified'], 'user', ['id']);
 
-        // Conditionally launch create table for block_course_menu_buttons.
+        // Conditionally launch create table for block_course_menu_button.
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
@@ -234,8 +234,8 @@ function xmldb_block_course_menu_upgrade($oldversion) {
 
     if ($oldversion < 2023040103) {
 
-        // Define field mod_name to be added to block_course_menu_buttons.
-        $table = new xmldb_table('block_course_menu_buttons');
+        // Define field mod_name to be added to block_course_menu_button.
+        $table = new xmldb_table('block_course_menu_button');
         $field = new xmldb_field('mod_name', XMLDB_TYPE_CHAR, '100', null, null, null, null, 'cmid');
 
         // Conditionally launch add field mod_name.
@@ -249,8 +249,8 @@ function xmldb_block_course_menu_upgrade($oldversion) {
 
     if ($oldversion < 2023040200) {
 
-        // Define field icon_bg_color to be added to block_course_menu_buttons.
-        $table = new xmldb_table('block_course_menu_buttons');
+        // Define field icon_bg_color to be added to block_course_menu_button.
+        $table = new xmldb_table('block_course_menu_button');
         $field = new xmldb_field('icon_bg_color', XMLDB_TYPE_CHAR, '10', null, null, null, '#8e8d8d', 'icon');
 
         // Conditionally launch add field icon_bg_color.
@@ -279,8 +279,8 @@ function xmldb_block_course_menu_upgrade($oldversion) {
 
     if ($oldversion < 2023042202) {
 
-        // Define field coursemenuid to be added to block_course_menu_buttons.
-        $table = new xmldb_table('block_course_menu_buttons');
+        // Define field coursemenuid to be added to block_course_menu_button.
+        $table = new xmldb_table('block_course_menu_button');
         $field = new xmldb_field('coursemenuid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'id');
 
         // Conditionally launch add field coursemenuid.
@@ -288,15 +288,15 @@ function xmldb_block_course_menu_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // Rename field sectionid on table block_course_menu_buttons to NEWNAMEGOESHERE.
-        $table = new xmldb_table('block_course_menu_buttons');
+        // Rename field sectionid on table block_course_menu_button to NEWNAMEGOESHERE.
+        $table = new xmldb_table('block_course_menu_button');
         $field = new xmldb_field('sectionid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'id');
 
         // Launch rename field sectionid.
         $dbman->rename_field($table, $field, 'sectionorder');
 
-        // Define index coursemenu_sectionorder_idx (not unique) to be added to block_course_menu_buttons.
-        $table = new xmldb_table('block_course_menu_buttons');
+        // Define index coursemenu_sectionorder_idx (not unique) to be added to block_course_menu_button.
+        $table = new xmldb_table('block_course_menu_button');
         $index = new xmldb_index('coursemenu_sectionorder_idx', XMLDB_INDEX_NOTUNIQUE, ['coursemenuid', 'sectionorder']);
 
         // Conditionally launch add index coursemenu_sectionorder_idx.
@@ -311,10 +311,10 @@ function xmldb_block_course_menu_upgrade($oldversion) {
             cms.sortorder as sectionorder
         FROM 
             {block_course_menu} cm Inner Join
-            {block_course_menu_sections} cms On cm.id = cms.coursemenuid";
+            {block_course_menu_section} cms On cm.id = cms.coursemenuid";
         $menus = $DB->get_recordset_sql($sql, []);
         foreach ($menus as $menu) {
-            if ($buttons = $DB->get_records('block_course_menu_buttons',['sectionorder' => $menu->coursemenusectionid])) {
+            if ($buttons = $DB->get_records('block_course_menu_button',['sectionorder' => $menu->coursemenusectionid])) {
                 foreach($buttons as $button) {
 
                     $params = [
@@ -322,13 +322,31 @@ function xmldb_block_course_menu_upgrade($oldversion) {
                         'coursemenuid' => $menu->coursemenuid,
                         'sectionorder' => $menu->sectionorder,
                     ];
-                    $DB->update_record('block_course_menu_buttons', $params);
+                    $DB->update_record('block_course_menu_button', $params);
                 }
             }
         }
 
         // Course_menu savepoint reached.
         upgrade_block_savepoint(true, 2023042202, 'course_menu');
+    }
+
+    if ($oldversion < 2023042204) {
+
+        // Define table block_course_menu_section to be renamed to NEWNAMEGOESHERE.
+        $table = new xmldb_table('block_course_menu_sections');
+
+        // Launch rename table for block_course_menu_section.
+        $dbman->rename_table($table, 'block_course_menu_section');
+
+        // Define table block_course_menu_button to be renamed to NEWNAMEGOESHERE.
+        $table = new xmldb_table('block_course_menu_buttons');
+
+        // Launch rename table for block_course_menu_button.
+        $dbman->rename_table($table, 'block_course_menu_button');
+
+        // Course_menu savepoint reached.
+        upgrade_block_savepoint(true, 2023042204, 'course_menu');
     }
     return true;
 }

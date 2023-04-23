@@ -18,7 +18,7 @@
         <KEY NAME="usermodified" TYPE="foreign" FIELDS="usermodified" REFTABLE="user" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="block_course_menu_sections" COMMENT="Holds sections">
+    <TABLE NAME="block_course_menu_section" COMMENT="Holds sections">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="coursemenuid" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Block instance id"/>
@@ -40,7 +40,7 @@
         <KEY NAME="usermodified" TYPE="foreign" FIELDS="usermodified" REFTABLE="user" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="block_course_menu_buttons" COMMENT="Default comment for the table, please edit me">
+    <TABLE NAME="block_course_menu_button" COMMENT="Default comment for the table, please edit me">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="coursemenuid" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>

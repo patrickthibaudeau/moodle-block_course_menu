@@ -21,7 +21,7 @@ class sections {
 	 */
 	public function __construct() {
 	    global $DB;
-	    $this->results = $DB->get_records('block_course_menu_sections');
+	    $this->results = $DB->get_records('block_course_menu_section');
 	}
 
 	/**

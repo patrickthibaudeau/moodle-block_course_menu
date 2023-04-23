@@ -230,7 +230,7 @@ class course_menu extends crud
         $context = \context_block::instance($this->instance);
         $section_data = [];
         $section_count = 0;
-        $sections = $DB->get_records('block_course_menu_sections', ['coursemenuid' => $this->id], 'sortorder');
+        $sections = $DB->get_records('block_course_menu_section', ['coursemenuid' => $this->id], 'sortorder');
         foreach ($sections as $section) {
             $section_data[$section_count] = new \stdClass();
             $section_data[$section_count]->id = $section->id;
@@ -297,7 +297,7 @@ class course_menu extends crud
             // Get buttons
             $buttons = [];
             $count = 0;
-            $buttons_data = $DB->get_records('block_course_menu_buttons',
+            $buttons_data = $DB->get_records('block_course_menu_button',
                 [
                     'coursemenuid' => $this->id,
                     'sectionorder' => $section->sortorder,

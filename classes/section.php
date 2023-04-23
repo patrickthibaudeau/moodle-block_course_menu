@@ -125,7 +125,7 @@ class section extends crud
     {
         global $CFG, $DB, $DB;
 
-        $this->table = 'block_course_menu_sections';
+        $this->table = 'block_course_menu_section';
 
         parent::set_table($this->table);
 

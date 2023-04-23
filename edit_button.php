@@ -21,7 +21,7 @@ $PAGE->set_heading(get_string('menu_button', 'block_course_menu'));
 $PAGE->requires->js_call_amd('block_course_menu/button', 'init');
 
 if ($id) {
-    $formdata = $DB->get_record('block_course_menu_buttons', ['id' => $id]);
+    $formdata = $DB->get_record('block_course_menu_button', ['id' => $id]);
     $formdata->instanceid = $COURSE_MENU->get_instance();
     $formdata->buttonstylegroup['button_type'] = $formdata->button_type;
     $formdata->imagegroup['image'] = $formdata->image;
@@ -80,7 +80,7 @@ if ($mform->is_cancelled()) {
     redirect($CFG->wwwroot . '/blocks/course_menu/menu_builder.php?id=' . $coursemenuid);
 } else if ($data = $mform->get_data()) {
     $sortorder = 1;
-    if ($buttons = $DB->count_records('block_course_menu_buttons',
+    if ($buttons = $DB->count_records('block_course_menu_button',
         [
             'coursemenuid' => $data->coursemenuid,
             'sectionorder' => $data->sectionorder
@@ -108,13 +108,13 @@ if ($mform->is_cancelled()) {
         $id = $data->id;
         $data->timemodified = time();
         $data->usermodified = $USER->id;
-        $DB->update_record('block_course_menu_buttons', $data);
+        $DB->update_record('block_course_menu_button', $data);
     } else {
         $data->sortorder = $sortorder;
         $data->timecreated = time();
         $data->timemodified = time();
         $data->usermodified = $USER->id;
-        $id = $DB->insert_record('block_course_menu_buttons', $data);
+        $id = $DB->insert_record('block_course_menu_button', $data);
     }
 
     file_save_draft_area_files(

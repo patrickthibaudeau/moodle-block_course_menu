@@ -21,7 +21,7 @@ class menu_buttonss {
 	 */
 	public function __construct() {
 	    global $DB;
-	    $this->results = $DB->get_records('block_course_menu_buttons');
+	    $this->results = $DB->get_records('block_course_menu_button');
 	}
 
 	/**

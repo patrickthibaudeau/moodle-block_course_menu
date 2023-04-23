@@ -88,8 +88,8 @@ class block_course_menu extends block_base
     {
         global $DB;
         if ($menu = $DB->get_record('block_course_menu', array('instance' => $this->instance->id))) {
-            $DB->delete_records('block_course_menu_buttons', array('coursemenuid' => $menu->id));
-            $DB->delete_records('block_course_menu_sections', array('coursemenuid' => $menu->id));
+            $DB->delete_records('block_course_menu_button', array('coursemenuid' => $menu->id));
+            $DB->delete_records('block_course_menu_section', array('coursemenuid' => $menu->id));
             $DB->delete_records('block_course_menu', array('id' => $menu->id));
             return true;
         }

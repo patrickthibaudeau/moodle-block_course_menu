@@ -118,7 +118,7 @@ class block_course_menu_external_block extends external_api
         //Context validation
         $context = context_block::instance($id);
 
-        $DB->update_record('block_course_menu_buttons', [
+        $DB->update_record('block_course_menu_button', [
                 'id' => $id,
                 'sortorder' => $sort_order,
                 'usermodified' => $USER->id,
@@ -174,7 +174,7 @@ class block_course_menu_external_block extends external_api
         //Context validation
         $context = context_block::instance($id);
 
-        $DB->update_record('block_course_menu_sections', [
+        $DB->update_record('block_course_menu_section', [
                 'id' => $id,
                 'sortorder' => $sort_order,
                 'usermodified' => $USER->id,
@@ -227,7 +227,7 @@ class block_course_menu_external_block extends external_api
         //Context validation
         $context = context_block::instance($id);
 
-        $DB->delete_records('block_course_menu_buttons', [
+        $DB->delete_records('block_course_menu_button', [
                 'id' => $id
             ]
         );
@@ -277,12 +277,12 @@ class block_course_menu_external_block extends external_api
         //Context validation
         $context = context_block::instance($id);
 
-        $DB->delete_records('block_course_menu_buttons', [
+        $DB->delete_records('block_course_menu_button', [
                 'sectionid' => $id
             ]
         );
 
-        $DB->delete_records('block_course_menu_sections', [
+        $DB->delete_records('block_course_menu_section', [
                 'id' => $id
             ]
         );
