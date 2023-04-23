@@ -8,20 +8,20 @@ use block_course_menu\course_menu;
 global $CFG, $USER, $PAGE, $SITE, $DB, $OUTPUT;
 require_login(1, false); //Use course 1 because this has nothing to do with an actual course, just like course 1
 $id = optional_param('id', 0, PARAM_INT);
-$sectionid = required_param('sectionid', PARAM_INT);
+$sectionorder = required_param('sectionorder', PARAM_INT);
 $coursemenuid = required_param('coursemenuid', PARAM_INT);
 
 $COURSE_MENU = new course_menu($coursemenuid);
 $context = context_block::instance($COURSE_MENU->get_instance());
 
-$PAGE->set_url($CFG->wwwroot . '/blocks/course_menu/edit_buttonphp?id=' . $id . '&coursemenuid=' . $coursemenuid . '&sectionid=' . $sectionid);
+$PAGE->set_url($CFG->wwwroot . '/blocks/course_menu/edit_buttonphp?id=' . $id . '&coursemenuid=' . $coursemenuid . '&sectionorder=' . $sectionorder);
 $PAGE->set_title(get_string('menu_button', 'block_course_menu'));
 $PAGE->set_heading(get_string('menu_button', 'block_course_menu'));
 // Load JS
 $PAGE->requires->js_call_amd('block_course_menu/button', 'init');
 
 if ($id) {
-    $formdata = $DB->get_record('block_course_menu_buttons', ['id' => $id]);
+    $formdata = $DB->get_record('block_course_menu_button', ['id' => $id]);
     $formdata->instanceid = $COURSE_MENU->get_instance();
     $formdata->buttonstylegroup['button_type'] = $formdata->button_type;
     $formdata->imagegroup['image'] = $formdata->image;
@@ -36,7 +36,7 @@ if ($id) {
     $formdata->buttonstylegroup['button_type'] = 'btn-secondary';
     $formdata->lang = current_language();
     $formdata->display_title = true;
-    $formdata->sectionid = $sectionid;
+    $formdata->sectionorder = $sectionorder;
     $formdata->iconbgcolorgroup['icon_bg_color'] = '#8e8d8d';
 }
 
@@ -80,7 +80,11 @@ if ($mform->is_cancelled()) {
     redirect($CFG->wwwroot . '/blocks/course_menu/menu_builder.php?id=' . $coursemenuid);
 } else if ($data = $mform->get_data()) {
     $sortorder = 1;
-    if ($buttons = $DB->count_records('block_course_menu_buttons', ['sectionid' => $data->sectionid])) {
+    if ($buttons = $DB->count_records('block_course_menu_button',
+        [
+            'coursemenuid' => $data->coursemenuid,
+            'sectionorder' => $data->sectionorder
+        ])) {
         $sortorder = $buttons + 1;
     }
     $data->image = $data->imagegroup['image'];
@@ -104,13 +108,13 @@ if ($mform->is_cancelled()) {
         $id = $data->id;
         $data->timemodified = time();
         $data->usermodified = $USER->id;
-        $DB->update_record('block_course_menu_buttons', $data);
+        $DB->update_record('block_course_menu_button', $data);
     } else {
         $data->sortorder = $sortorder;
         $data->timecreated = time();
         $data->timemodified = time();
         $data->usermodified = $USER->id;
-        $id = $DB->insert_record('block_course_menu_buttons', $data);
+        $id = $DB->insert_record('block_course_menu_button', $data);
     }
 
     file_save_draft_area_files(

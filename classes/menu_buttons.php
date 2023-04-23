@@ -122,7 +122,7 @@ class menu_buttons extends crud {
 	public function __construct($id = 0){
   	global $CFG, $DB, $DB;
 
-		$this->table = 'block_course_menu_buttons';
+		$this->table = 'block_course_menu_button';
 
 		parent::set_table($this->table);
 

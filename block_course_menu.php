@@ -21,12 +21,14 @@
  * @copyright   2023 Patrick Thibaudeau ,thibaud@yorku.ca>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_course_menu extends block_base {
+class block_course_menu extends block_base
+{
 
     /**
      * Initializes class member variables.
      */
-    public function init() {
+    public function init()
+    {
         // Needed by Moodle to differentiate between blocks.
         $this->title = get_string('pluginname', 'block_course_menu');
     }
@@ -36,7 +38,8 @@ class block_course_menu extends block_base {
      *
      * @return stdClass The block contents.
      */
-    public function get_content() {
+    public function get_content()
+    {
         global $DB, $USER, $PAGE, $COURSE;
 
         $show_in_section_zero = false;
@@ -81,12 +84,25 @@ class block_course_menu extends block_base {
         return $this->content;
     }
 
+    public function instance_delete()
+    {
+        global $DB;
+        if ($menu = $DB->get_record('block_course_menu', array('instance' => $this->instance->id))) {
+            $DB->delete_records('block_course_menu_button', array('coursemenuid' => $menu->id));
+            $DB->delete_records('block_course_menu_section', array('coursemenuid' => $menu->id));
+            $DB->delete_records('block_course_menu', array('id' => $menu->id));
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Defines configuration data.
      *
      * The function is called immediately after init().
      */
-    public function specialization() {
+    public function specialization()
+    {
 
         // Load user defined title and make sure it's never empty.
         if (empty($this->config->title)) {
@@ -101,7 +117,8 @@ class block_course_menu extends block_base {
      *
      * @return bool True if the global configuration is enabled.
      */
-    public function has_config() {
+    public function has_config()
+    {
         return true;
     }
 
@@ -110,7 +127,8 @@ class block_course_menu extends block_base {
      *
      * @return string[] Array of pages and permissions.
      */
-    public function applicable_formats() {
+    public function applicable_formats()
+    {
         return array(
             'course-view' => true,
         );

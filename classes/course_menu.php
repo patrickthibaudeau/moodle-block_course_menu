@@ -230,14 +230,16 @@ class course_menu extends crud
         $context = \context_block::instance($this->instance);
         $section_data = [];
         $section_count = 0;
-        $sections = $DB->get_records('block_course_menu_sections', ['coursemenuid' => $this->id], 'sortorder');
+        $sections = $DB->get_records('block_course_menu_section', ['coursemenuid' => $this->id], 'sortorder');
         foreach ($sections as $section) {
             $section_data[$section_count] = new \stdClass();
             $section_data[$section_count]->id = $section->id;
+            $section_data[$section_count]->sortorder = $section->sortorder;
             $section_data[$section_count]->coursemenuid = $section->coursemenuid;
             $section_data[$section_count]->title = $section->title;
             $section_data[$section_count]->display_title = $section->display_title;
             $section_data[$section_count]->button_type = $section->button_type;
+            $section_data[$section_count]->text_color = $section->text_color;
             // Get background image
             $section_data[$section_count]->background_image = '';
             $fs = get_file_storage();
@@ -250,14 +252,16 @@ class course_menu extends crud
             foreach ($background_files as $file) {
                 $filename = $file->get_filename();
                 if ($filename && $filename != '.') {
-                    $url = $CFG->wwwroot . '/pluginfile.php/' .
-                        $context->id .
-                        '/block/course_menu/section_background/' .
-                        $file->get_itemid() .
-                        $file->get_filepath() .
-                        '/' . $filename;
+                    $url = \moodle_url::make_pluginfile_url(
+                        $file->get_contextid(),
+                        $file->get_component(),
+                        $file->get_filearea(),
+                        $file->get_itemid(),
+                        $file->get_filepath(),
+                        $file->get_filename(),
+                        false);
 
-                    $section_data[$section_count]->background_image = $url;
+                    $section_data[$section_count]->background_image = $CFG->wwwroot . $url->out_as_local_url();
                 }
             }
 
@@ -273,14 +277,15 @@ class course_menu extends crud
                 $filename = $file->get_filename();
 
                 if (trim($filename) && trim($filename) != '.') {
-                    $url = $CFG->wwwroot . '/pluginfile.php/' .
-                        $context->id .
-                        '/block/course_menu/section_image/' .
-                        $file->get_itemid() .
-                        $file->get_filepath() .
-                        '/' . $filename;
-
-                    $section_data[$section_count]->image = $url;
+                    $url = \moodle_url::make_pluginfile_url(
+                        $file->get_contextid(),
+                        $file->get_component(),
+                        $file->get_filearea(),
+                        $file->get_itemid(),
+                        $file->get_filepath(),
+                        $file->get_filename(),
+                        false);
+                    $section_data[$section_count]->image = $CFG->wwwroot . $url->out_as_local_url();
                 }
             }
             if (!$section_data[$section_count]->image) {
@@ -296,14 +301,19 @@ class course_menu extends crud
             // Get buttons
             $buttons = [];
             $count = 0;
-            $buttons_data = $DB->get_records('block_course_menu_buttons', ['sectionid' => $section->id], 'sortorder');
+            $buttons_data = $DB->get_records('block_course_menu_button',
+                [
+                    'coursemenuid' => $this->id,
+                    'sectionorder' => $section->sortorder,
+                ], 'sortorder');
             foreach ($buttons_data as $button) {
                 $buttons[$count]['id'] = $button->id;
                 $buttons[$count]['coursemenuidid'] = $this->id;
-                $buttons[$count]['sectionid'] = $button->sectionid;
+                $buttons[$count]['sectionorder'] = $button->sectionorder;
                 $buttons[$count]['title'] = $button->title;
                 $buttons[$count]['display_title'] = $button->display_title;
                 $buttons[$count]['button_type'] = $button->button_type;
+                $buttons[$count]['text_color'] = $button->text_color;
                 $buttons[$count]['cmid'] = $button->cmid;
                 $buttons[$count]['mod_name'] = $button->mod_name;
                 // Get background image
@@ -313,19 +323,20 @@ class course_menu extends crud
                     $context->id,
                     'block_course_menu',
                     'button_background',
-                    $section->id);
-
+                    $button->id);
                 foreach ($background_files as $file) {
                     $filename = $file->get_filename();
                     if ($filename && $filename != '.') {
-                        $url = $CFG->wwwroot . '/pluginfile.php/' .
-                            $context->id .
-                            '/block/course_menu/button_background/' .
-                            $file->get_itemid() .
-                            $file->get_filepath() .
-                            '/' . $filename;
+                        $url = \moodle_url::make_pluginfile_url(
+                            $file->get_contextid(),
+                            $file->get_component(),
+                            $file->get_filearea(),
+                            $file->get_itemid(),
+                            $file->get_filepath(),
+                            $file->get_filename(),
+                            false);
 
-                        $buttons[$count]['background_image'] = $url;
+                        $buttons[$count]['background_image'] = $CFG->wwwroot . $url->out_as_local_url();
                     }
                 }
 
@@ -336,19 +347,21 @@ class course_menu extends crud
                     $context->id,
                     'block_course_menu',
                     'button_image',
-                    $section->id);
+                    $button->id);
 
                 foreach ($image_files as $file) {
                     $filename = $file->get_filename();
                     if ($filename && $filename != '.') {
-                        $url = $CFG->wwwroot . '/pluginfile.php/' .
-                            $context->id .
-                            '/block/course_menu/button_image/' .
-                            $file->get_itemid() .
-                            $file->get_filepath() .
-                            '/' . $filename;
+                        $url = \moodle_url::make_pluginfile_url(
+                            $file->get_contextid(),
+                            $file->get_component(),
+                            $file->get_filearea(),
+                            $file->get_itemid(),
+                            $file->get_filepath(),
+                            $file->get_filename(),
+                            false);
 
-                        $buttons[$count]['image'] = $url;
+                        $buttons[$count]['image'] = $CFG->wwwroot . $url->out_as_local_url();
                     }
 
                 }

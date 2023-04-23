@@ -59,3 +59,16 @@ $string['show_title'] = 'Show title';
 $string['title'] = 'Title';
 $string['will_not_display'] = 'This button will not be displayed.';
 $string['yes'] = 'Yes';
+
+/**
+ * Colors
+ */
+$string['text_color'] = 'Text colour';
+$string['black'] = 'Black';
+$string['blue'] = 'Blue';
+$string['cyan'] = 'Cyan';
+$string['lime'] = 'Lime';
+$string['magenta'] = 'Magenta';
+$string['red'] = 'Red';
+$string['white'] = 'White';
+$string['yellow'] = 'Yellow';
