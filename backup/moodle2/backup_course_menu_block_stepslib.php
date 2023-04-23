@@ -12,14 +12,11 @@ class backup_course_menu_block_structure_step extends backup_block_structure_ste
         $block_course_menu = $DB->get_record('block_course_menu', array('instance' => $this->task->get_blockid()));
                 // Define each element
         $course_menu = new backup_nested_element('course_menu', ['id'], [
-            'instance',
-            'courseid',
             'section_zero'
         ]);
 
         $course_menu_sections = new backup_nested_element('course_menu_sections');
         $course_menu_section = new backup_nested_element('course_menu_section', ['id'], [
-            'coursemenuid',
             'lang',
             'title',
             'display_title',
@@ -32,7 +29,6 @@ class backup_course_menu_block_structure_step extends backup_block_structure_ste
         ]);
         $course_menu_buttons = new backup_nested_element('course_menu_buttons');
         $course_menu_button = new backup_nested_element('course_menu_button', ['id'], [
-            'coursemenuid',
             'sectionorder',
             'title',
             'display_title',
