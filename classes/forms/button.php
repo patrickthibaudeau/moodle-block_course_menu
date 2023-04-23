@@ -69,6 +69,21 @@ class button extends moodleform
         $mform->addElement('selectyesno', 'display_title', get_string('show_title', 'block_course_menu'));
         $mform->setType('display_title', PARAM_INT);
 
+        // Text color
+        $text_colors = [
+            '#000000' => get_string('black', 'block_course_menu'),
+            '#FFFFFF' => get_string('white', 'block_course_menu'),
+            '#FFFF00' => get_string('yellow', 'block_course_menu'),
+            '#FF00FF' => get_string('magenta', 'block_course_menu'),
+            '#FF0000' => get_string('red', 'block_course_menu'),
+            '#00FFFF' => get_string('cyan', 'block_course_menu'),
+            '#00FF00' => get_string('lime', 'block_course_menu'),
+            '#0000FF' => get_string('blue', 'block_course_menu'),
+        ];
+        $mform->addElement('select','text_color',
+            get_string('text_color', 'block_course_menu'), $text_colors);
+        $mform->setType('text_color', PARAM_TEXT);
+
         // Link to activity
         $mform->AddElement('select', 'module', get_string('link_activity', 'block_course_menu'), $modules);
         $mform->setType('module', PARAM_TEXT);

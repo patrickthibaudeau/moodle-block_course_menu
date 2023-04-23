@@ -348,5 +348,29 @@ function xmldb_block_course_menu_upgrade($oldversion) {
         // Course_menu savepoint reached.
         upgrade_block_savepoint(true, 2023042204, 'course_menu');
     }
+
+    if ($oldversion < 2023042300) {
+
+        // Define field text_color to be added to block_course_menu_button.
+        $table = new xmldb_table('block_course_menu_button');
+        $field = new xmldb_field('text_color', XMLDB_TYPE_CHAR, '10', null, null, null, '#000000', 'display_title');
+
+        // Conditionally launch add field text_color.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field text_color to be added to block_course_menu_section.
+        $table = new xmldb_table('block_course_menu_section');
+        $field = new xmldb_field('text_color', XMLDB_TYPE_CHAR, '10', null, null, null, '#000000', 'display_title');
+
+        // Conditionally launch add field text_color.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Course_menu savepoint reached.
+        upgrade_block_savepoint(true, 2023042300, 'course_menu');
+    }
     return true;
 }

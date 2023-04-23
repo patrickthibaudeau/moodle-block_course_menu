@@ -239,6 +239,7 @@ class course_menu extends crud
             $section_data[$section_count]->title = $section->title;
             $section_data[$section_count]->display_title = $section->display_title;
             $section_data[$section_count]->button_type = $section->button_type;
+            $section_data[$section_count]->text_color = $section->text_color;
             // Get background image
             $section_data[$section_count]->background_image = '';
             $fs = get_file_storage();
@@ -312,6 +313,7 @@ class course_menu extends crud
                 $buttons[$count]['title'] = $button->title;
                 $buttons[$count]['display_title'] = $button->display_title;
                 $buttons[$count]['button_type'] = $button->button_type;
+                $buttons[$count]['text_color'] = $button->text_color;
                 $buttons[$count]['cmid'] = $button->cmid;
                 $buttons[$count]['mod_name'] = $button->mod_name;
                 // Get background image
