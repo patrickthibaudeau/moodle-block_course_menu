@@ -1,8 +1,8 @@
 # Custom Course Menu #
 
-TODO Describe the plugin shortly here.
+This plugin enables you to create a course menu. Each menu button can be linked to an activity with then course.
 
-TODO Provide more detailed description here.
+Furthermore, there is an option for the block to be prepended to section zero of the course
 
 ## Installing via uploaded ZIP file ##
 
@@ -29,7 +29,7 @@ to complete the installation from the command line.
 
 ## License ##
 
-2023 Patrick Thibaudeau ,thibaud@yorku.ca>
+2023 Patrick Thibaudeau ,thibaud@yorku.ca
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
