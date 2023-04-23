@@ -106,7 +106,7 @@
             <div class="col">
                 <button type="button"
                         class="btn {{^background_image}}{{button_type}}{{/background_image}} btn-lg d-flex justify-content-left align-items-center"
-                        style="width: 100%; min-height:82px; {{#background_image}}background-image: {{background_image}};{{/background_image}}">
+                        style="width: 100%; min-height:82px; {{#background_image}}background: url('{{background_image}}') no-repeat top left;{{/background_image}}">
                     {{#image}}
                         <img src="{{image}}" class="img-fluid btn-image">
                     {{/image}}
@@ -124,7 +124,7 @@
     <div class="row mb-3">
         {{#buttons}}
             <div class="col-md-4 col-sm-12 mt-3">
-                <a href="{{config.wwwroot}}/mod/{{mod_name}}/view.php?id={{cmid}}" class="btn {{button_type}} btn-lg " style="width:100%">
+                <a href="{{config.wwwroot}}/mod/{{mod_name}}/view.php?id={{cmid}}" class="btn {{#background_image}}{{button_type}}{{/background_image}} btn-lg " style="width:100%; {{#background_image}}background: url('{{background_image}}') no-repeat top left;{{/background_image}}">
                     <div class="row">
                         <div class="col-4 d-flex justify-content-center align-items-center">
                             {{#image}}

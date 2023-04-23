@@ -32,7 +32,7 @@ class menu_builder implements \renderable, \templatable
             'courseid' => $COURSE_MENU->get_courseid(),
             'sections' => $COURSE_MENU->get_menu_data(),
         ];
-//print_object($data);
+
         return $data;
     }
 

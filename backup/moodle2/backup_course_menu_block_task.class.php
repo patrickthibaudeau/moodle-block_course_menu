@@ -37,7 +37,13 @@ class backup_course_menu_block_task extends backup_block_task
 
     public function get_fileareas()
     {
-       return array();
+        $fileAreas = array(
+            'section_background',
+            'section_image',
+            'button_background',
+            'button_image'
+        );
+       return $fileAreas;
     }
 
     public function get_configdata_encoded_attributes()
