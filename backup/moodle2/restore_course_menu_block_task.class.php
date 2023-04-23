@@ -13,8 +13,15 @@ class restore_course_menu_block_task extends restore_block_task
         $this->add_step(new restore_course_menu_block_structure_step('course_menu_structure', 'course_menu.xml'));
     }
 
-    public function get_fileareas() {
-        return array(); // No associated fileareas
+    public function get_fileareas()
+    {
+        $fileAreas = array(
+            'section_background',
+            'section_image',
+            'button_background',
+            'button_image'
+        );
+        return $fileAreas;
     }
 
     public function get_configdata_encoded_attributes() {

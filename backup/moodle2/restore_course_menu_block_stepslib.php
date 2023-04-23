@@ -37,6 +37,8 @@ class restore_course_menu_block_structure_step extends restore_structure_step
         // COnvert array to object
         $data = (object)$data;
 
+        $context = \context_block::instance($this->task->get_blockid());
+
         $params = [
             'instance' => $this->task->get_blockid(),
             'courseid' => $this->task->get_courseid()
@@ -57,21 +59,28 @@ class restore_course_menu_block_structure_step extends restore_structure_step
             $sections = $data->course_menu_sections['course_menu_section'];
             foreach ($sections as $key => $section) {
                 $section = (object)$section;
+                $old_section_id = $section->id;
                 $section->coursemenuid = $new_id;
                 $section->usermodified = $USER->id;
                 $section->timemodified = time();
                 $section->timecreated = time();
-                $DB->insert_record('block_course_menu_section', $section);
+                $new_section_id = $DB->insert_record('block_course_menu_section', $section);
+                // restore file
+                $this->restore_file($context->id, $old_section_id, $new_section_id, 'section_background');
+                $this->restore_file($context->id, $old_section_id, $new_section_id, 'section_image');
             }
             // Add buttons
             $buttons = $data->course_menu_buttons['course_menu_button'];
             foreach ($buttons as $key => $button) {
                 $button = (object)$button;
+                $old_button_id = $button->id;
                 $button->coursemenuid = $new_id;
                 $button->usermodified = $USER->id;
                 $button->timemodified = time();
                 $button->timecreated = time();
-                $DB->insert_record('block_course_menu_button', $button);
+                $new_button_id = $DB->insert_record('block_course_menu_button', $button);
+                $this->restore_file($context->id, $old_button_id, $new_button_id, 'button_background');
+                $this->restore_file($context->id, $old_button_id, $new_button_id, 'button_image');
             }
         } else {
             return;
@@ -112,6 +121,53 @@ class restore_course_menu_block_structure_step extends restore_structure_step
                     }
                 }
             }
+        }
+        // Clear course cache
+        rebuild_course_cache($course_menu->courseid);
+    }
+
+    /**
+     * Restore file
+     * @param $contextid
+     * @param $old_section_id
+     * @param $new_section_id
+     * @param $filearea
+     * @return void
+     * @throws dml_exception
+     */
+    protected function restore_file($contextid, $old_item_id, $new_item_id, $filearea) {
+        global $DB;
+        $sql = "SELECT 
+                    * 
+                FROM 
+                    {files} 
+                WHERE 
+                    component = 'block_course_menu' AND
+                    contextid = ? AND 
+                    filearea = ? AND
+                    itemid = ? AND
+                    filename != '.'
+                    ";
+        if ($old_file = $DB->get_record_sql($sql, [$contextid, $filearea, $old_item_id])) {
+            $fs = get_file_storage();
+            $fileinfo = array(
+                'component' => 'block_course_menu',     // usually = table name
+                'filearea' => $filearea,     // usually = table name
+                'itemid' => $old_item_id,               // usually = ID of row in table
+                'contextid' => $contextid, // ID of context
+                'filepath' => '/',
+                'filename' => $old_file->filename); // any filename
+            $file = $fs->get_file($fileinfo['contextid'], $fileinfo['component'], $fileinfo['filearea'],
+                $fileinfo['itemid'], $fileinfo['filepath'], $fileinfo['filename']);
+            $content = $file->get_content();
+            if ($file) {
+                // Create new file for this item
+                $fileinfo['itemid'] = $new_item_id;
+                $fs->create_file_from_string($fileinfo, $content);
+                // Delete old file
+                $file->delete();
+            }
+
         }
     }
 }
