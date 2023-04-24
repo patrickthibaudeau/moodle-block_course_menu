@@ -36,7 +36,7 @@ if ($id) {
     $formdata->buttonstylegroup['button_type'] = 'btn-secondary';
     $formdata->lang = current_language();
     $formdata->display_title = true;
-    $formdata->text_color = '#FFFFFF';
+    $formdata->text_color = '#000000';
     $formdata->sectionorder = $sectionorder;
     $formdata->iconbgcolorgroup['icon_bg_color'] = '#8e8d8d';
 }
