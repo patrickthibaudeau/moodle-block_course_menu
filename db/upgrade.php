@@ -340,7 +340,7 @@ function xmldb_block_course_menu_upgrade($oldversion) {
                         'coursemenuid' => $menu->coursemenuid,
                         'sectionorder' => $menu->sectionorder,
                     ];
-                    $DB->update_record('block_course_menu_button', $params);
+                    $DB->update_record('block_course_menu_button', (object)$params);
                 }
             }
         }
