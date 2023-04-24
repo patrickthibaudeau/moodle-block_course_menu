@@ -31,6 +31,7 @@ if ($id) {
     $formdata->instanceid = $COURSE_MENU->get_instance();
     $formdata->lang = current_language();
     $formdata->display_title = true;
+    $formdata->text_color = '#FFFFFF';
     $formdata->buttonstylegroup['button_type'] = 'btn-primary';
 }
 
