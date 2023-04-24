@@ -349,24 +349,6 @@ function xmldb_block_course_menu_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2023042202, 'course_menu');
     }
 
-    if ($oldversion < 2023042204) {
-
-        // Define table block_course_menu_section to be renamed to NEWNAMEGOESHERE.
-        $table = new xmldb_table('block_course_menu_sections');
-
-        // Launch rename table for block_course_menu_section.
-        $dbman->rename_table($table, 'block_course_menu_section');
-
-        // Define table block_course_menu_button to be renamed to NEWNAMEGOESHERE.
-        $table = new xmldb_table('block_course_menu_buttons');
-
-        // Launch rename table for block_course_menu_button.
-        $dbman->rename_table($table, 'block_course_menu_button');
-
-        // Course_menu savepoint reached.
-        upgrade_block_savepoint(true, 2023042204, 'course_menu');
-    }
-
     if ($oldversion < 2023042300) {
 
         // Define field text_color to be added to block_course_menu_button.
