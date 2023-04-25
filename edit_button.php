@@ -14,7 +14,7 @@ $coursemenuid = required_param('coursemenuid', PARAM_INT);
 $COURSE_MENU = new course_menu($coursemenuid);
 $context = context_block::instance($COURSE_MENU->get_instance());
 
-$PAGE->set_url($CFG->wwwroot . '/blocks/course_menu/edit_buttonphp?id=' . $id . '&coursemenuid=' . $coursemenuid . '&sectionorder=' . $sectionorder);
+$PAGE->set_url($CFG->wwwroot . '/blocks/course_menu/edit_button.php?id=' . $id . '&coursemenuid=' . $coursemenuid . '&sectionorder=' . $sectionorder);
 $PAGE->set_title(get_string('menu_button', 'block_course_menu'));
 $PAGE->set_heading(get_string('menu_button', 'block_course_menu'));
 // Load JS

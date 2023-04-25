@@ -150,7 +150,7 @@
                     {{#str}}edit_section, block_course_menu{{/str}}
                     </a>
 
-                    <a href="javscript:void(0);" data-sectionorder="{{sortorder}}"
+                    <a href="#" data-coursemenuid="{{coursemenuid}}" data-sectionorder="{{sortorder}}"
                        title="{{#str}}delete_section, block_course_menu{{/str}}" class="btn btn-danger btn-sm mt-2 delete-section">
                         {{#str}}delete_section, block_course_menu{{/str}}
                     </a>
@@ -192,7 +192,7 @@
                                                href="{{config.wwwroot}}/blocks/course_menu/edit_button.php?id={{id}}&coursemenuid={{coursemenuid}}&sectionorder={{sectionorder}}">
                                             {{#str}}edit, block_course_menu{{/str}}</a>
                                             <a class="dropdown-item delete-item" data-id="{{id}}"
-                                               data-coursemenuid="{{coursemenuid}}" href="#">{{#str}}
+                                               data-coursemenuid="{{coursemenuid}}" data-sectionorder="{{sectionorder}}" href="#">{{#str}}
                                                 delete, block_course_menu{{/str}}</a>
                                         </div>
                                     </div>
