@@ -59,9 +59,6 @@ class block_course_menu_external_block extends external_api
             )
         );
 
-        //Context validation
-        $context = context_block::instance($id);
-
         $DB->update_record('block_course_menu', [
                 'id' => $id,
                 'section_zero' => $value,
@@ -114,9 +111,6 @@ class block_course_menu_external_block extends external_api
                 'sort_order' => $sort_order
             )
         );
-
-        //Context validation
-        $context = context_block::instance($id);
 
         $DB->update_record('block_course_menu_button', [
                 'id' => $id,
@@ -171,9 +165,6 @@ class block_course_menu_external_block extends external_api
             )
         );
 
-        //Context validation
-        $context = context_block::instance($id);
-
         $DB->update_record('block_course_menu_section', [
                 'id' => $id,
                 'sortorder' => $sort_order,
@@ -224,9 +215,6 @@ class block_course_menu_external_block extends external_api
             )
         );
 
-        //Context validation
-        $context = context_block::instance($id);
-
         $DB->delete_records('block_course_menu_button', [
                 'id' => $id
             ]
@@ -254,7 +242,8 @@ class block_course_menu_external_block extends external_api
     {
         return new external_function_parameters(
             array(
-                'id' => new external_value(PARAM_INT, 'ID from block_course_menu table', false, 0)
+                'coursemenuid' => new external_value(PARAM_INT, 'Course menu ID', false, 0),
+                'sortorder' => new external_value(PARAM_INT, 'Sort order of section', false, 0),
             )
         );
     }
@@ -265,25 +254,39 @@ class block_course_menu_external_block extends external_api
      * @return bool
      * @throws invalid_parameter_exception
      */
-    public static function delete_section($id)
+    public static function delete_section($coursemenuid, $sortorder)
     {
         global $CFG, $USER, $DB;
         //Parameter validation
         $params = self::validate_parameters(self::delete_section_parameters(), array(
-                'id' => $id,
+                'coursemenuid' => $coursemenuid,
+                'sortorder' => $sortorder,
             )
         );
 
-        //Context validation
-        $context = context_block::instance($id);
+        // Get section based on course menu id and sortorder
+        $section = $DB->get_record('block_course_menu_section', [
+            'coursemenuid' => $coursemenuid,
+            'sortorder' => $sortorder
+        ]);
 
-        $DB->delete_records('block_course_menu_button', [
-                'sectionid' => $id
-            ]
-        );
+        // Get all buttons based on course menu id and sortorder
+        $buttons = $DB->get_records('block_course_menu_button', [
+                'coursemenuid' => $coursemenuid,
+                'sortorder' => $sortorder
+        ]);
 
+        // Delete all buttons
+        foreach($buttons as $button) {
+            $DB->delete_records('block_course_menu_button', [
+                    'id' => $button->id
+                ]
+            );
+        }
+
+        // Delete section
         $DB->delete_records('block_course_menu_section', [
-                'id' => $id
+                'id' => $section->id
             ]
         );
 

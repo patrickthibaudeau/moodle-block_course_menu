@@ -8,7 +8,7 @@ import {get_string as getString} from 'core/str';
 export const init = () => {
     $('button').on('click', function (e) {
         e.preventDefault();
-    })
+    });
 
     $('.sections').sortable({
         cancel: '',
@@ -106,7 +106,8 @@ export const init = () => {
 
     // Delete section
     $('.delete-section').on('click', function () {
-        let id = $(this).data('sectionid');
+        let coursemenuid = $(this).data('coursemenuid');
+        let sortorder = $(this).data('sectionorder');
 
         ModalFactory.create({
             type: ModalFactory.types.SAVE_CANCEL,
@@ -120,7 +121,8 @@ export const init = () => {
                 var deleteSection = ajax.call([{
                     methodname: 'block_course_menu_delete_section',
                     args: {
-                        id: id
+                        coursemenuid: coursemenuid,
+                        sortorder: sortorder
                     }
                 }]);
 
@@ -131,7 +133,6 @@ export const init = () => {
                 });
             });
 
-            console.log(ModalEvents);
             modal.getRoot().on(ModalEvents.cancel, function () {
                 // Close Modal
             });
@@ -142,5 +143,7 @@ export const init = () => {
              */
             modal.show();
         });
+
+
     });
 };
