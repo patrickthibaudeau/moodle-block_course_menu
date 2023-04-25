@@ -38,6 +38,7 @@ class block implements \renderable, \templatable
         $langs = get_string_manager()->get_list_of_translations();
         $data = [
             'id' => $this->block_data_id,
+            'courseid' => $COURSE_MENU->get_courseid(),
             'editor' => $editor,
             'show_in_section_zero' => $this->show_in_section_zero,
             'langs' => $langs,
