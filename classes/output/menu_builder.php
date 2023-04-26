@@ -28,9 +28,15 @@ class menu_builder implements \renderable, \templatable
 
         $COURSE_MENU = new course_menu($this->id);
 
+        if (!$COURSE_MENU->get_courseid()) {
+            $courseid = $this->courseid;
+        } else {
+            $courseid = $COURSE_MENU->get_courseid();
+        }
+
         $data = [
             'id' => $this->id,
-            'courseid' => $this->courseid,
+            'courseid' => $courseid,
             'sections' => $COURSE_MENU->get_menu_data(),
         ];
 
