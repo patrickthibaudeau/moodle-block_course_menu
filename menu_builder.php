@@ -18,14 +18,15 @@ require_once( '../../config.php');
 global $CFG, $OUTPUT, $SESSION, $PAGE, $DB, $COURSE, $USER;
 
 $id = optional_param('id', 0, PARAM_INT); //Block Instance ID
+$courseid = optional_param('courseid', 0, PARAM_INT); //Course id
 
-$context = context_block::instance($id);
+require_login(1, false); //Use course 1 because this has nothing to do with an actual course, just like course 1
+
+$context = context_COURSE::instance($courseid);
 
 if (!has_capability('block/course_menu:edit', $context)) {
     redirect($CFG->wwwroot, get_string('nopermissions', 'block_course_menu'));
 }
-
-require_login(1, false); //Use course 1 because this has nothing to do with an actual course, just like course 1
 
 $PAGE->set_url('/blocks/course_menu/menu_builder.ph', array('id' => $id));
 $PAGE->set_context($context);
