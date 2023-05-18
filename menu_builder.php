@@ -15,12 +15,19 @@
 
 require_once( '../../config.php');
 
+use block_course_menu\course_menu;
+
 global $CFG, $OUTPUT, $SESSION, $PAGE, $DB, $COURSE, $USER;
 
 $id = optional_param('id', 0, PARAM_INT); //Block Instance ID
 $courseid = optional_param('courseid', 0, PARAM_INT); //Course id
 
 require_login(1, false); //Use course 1 because this has nothing to do with an actual course, just like course 1
+
+if (!$courseid) {
+    $COURSE_MENU = new course_menu($id);
+    $courseid = $COURSE_MENU->get_courseid();
+}
 
 $context = context_COURSE::instance($courseid);
 
