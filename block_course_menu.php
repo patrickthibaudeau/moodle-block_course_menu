@@ -45,6 +45,7 @@ class block_course_menu extends block_base
         $show_in_section_zero = false;
         // Get block data
         $block_data = $DB->get_record('block_course_menu', array('instance' => $this->instance->id));
+        $PAGE->requires->css(new moodle_url('/blocks/course_menu/css/general.css'));
 
         if (!$block_data) {
             $id = $DB->insert_record('block_course_menu', array(
