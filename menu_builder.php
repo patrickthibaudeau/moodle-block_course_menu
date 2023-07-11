@@ -41,7 +41,7 @@ $PAGE->set_title(get_string('menu_builder', 'block_course_menu'));
 $PAGE->set_heading(get_string('menu_builder', 'block_course_menu'));
 
 $PAGE->requires->js_call_amd('block_course_menu/menu_builder', 'init');;
-
+$PAGE->requires->css(new moodle_url('/blocks/course_menu/css/general.css'));
 // Get renderable content.
 $output = $PAGE->get_renderer('block_course_menu');
 $menu = new \block_course_menu\output\menu_builder($id);
