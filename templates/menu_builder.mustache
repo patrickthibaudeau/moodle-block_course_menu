@@ -5,6 +5,20 @@
         {{#str}}add_section, block_course_menu{{/str}}
         </a>
 
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                {{#str}}import, block_course_menu{{/str}}/{{#str}}export, block_course_menu{{/str}}
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{config.wwwroot}}/blocks/course_menu/import.php?coursemenuid={{id}}">
+                   {{#str}}import, block_course_menu{{/str}}
+                </a>
+                <a class="dropdown-item" href="{{config.wwwroot}}/blocks/course_menu/export.php?coursemenuid={{id}}">
+                    {{#str}}export, block_course_menu{{/str}}
+                </a>
+            </div>
+        </div>
+
         <a href="{{config.wwwroot}}/course/view.php?id={{courseid}}" class="btn
         btn-outline-primary">
         {{#str}}return_to_course, block_course_menu{{/str}}

@@ -316,6 +316,7 @@ class course_menu extends crud
                 $buttons[$count]['text_color'] = $button->text_color;
                 $buttons[$count]['cmid'] = $button->cmid;
                 $buttons[$count]['mod_name'] = $button->mod_name;
+                $buttons[$count]['mod_title'] = $button->mod_title;
                 // Get background image
                 $buttons[$count]['background_image'] = '';
                 $fs = get_file_storage();
@@ -376,6 +377,8 @@ class course_menu extends crud
                     }
                 }
                 $buttons[$count]['icon_bg_color'] = $button->icon_bg_color;
+                $buttons[$count]['icon_bg_color'] = $button->url;
+                $buttons[$count]['sortorder'] = $button->sortorder;
                 $count++;
             }
             $section_data[$section_count]->buttons = $buttons;
@@ -383,6 +386,48 @@ class course_menu extends crud
         }
 
         return $section_data;
+    }
+
+    /**
+     * Returns array course modules. Excludes labels and modules in the process of being deleted.
+     * @param $courseid
+     * @return array
+     * @throws coding_exception
+     * @throws moodle_exception
+     */
+    public function get_mods($courseid)
+    {
+        global $CFG, $DB;
+        include_once($CFG->dirroot . '/question/editlib.php');
+        $mods = get_fast_modinfo($courseid);
+        $sections = $mods->get_sections();
+        $modules = [];
+        $i = 0;
+        foreach ($sections as $section) {
+            foreach ($section as $key => $cmid) {
+                $module = get_module_from_cmid($cmid);
+                // Do not add modules in deletion progress
+                if ($module[1]->deletioninprogress != 1) {
+                    // Only add modules that are not labels
+                    if ($module[1]->modname != 'label') {
+                        // Create module object
+                        $data = new \stdClass();
+                        $data->section = $key;
+                        $data->id = $module[1]->id;
+                        $data->instance = $module[1]->instance;
+                        $data->modname = $module[1]->modname;
+                        $data->name = $module[1]->name;
+                        $data->pluginname = get_string('pluginname', $module[1]->modname);
+                        // Add module to array
+                        $modules[$i] = $data;
+                        unset($data);
+                        $i++;
+                    }
+                }
+            }
+        }
+
+        return $modules;
     }
 
 }
