@@ -6,7 +6,10 @@ use block_course_menu\course_menu;
 
 class menu_builder implements \renderable, \templatable
 {
-
+    /**
+     * @var int The menu builder ID
+     */
+    private $id;
 
     public function __construct($id)
     {

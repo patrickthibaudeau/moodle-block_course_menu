@@ -6,7 +6,15 @@ use block_course_menu\course_menu;
 
 class block implements \renderable, \templatable
 {
+    /**
+     * @var int The block data ID
+     */
+    private $block_data_id;
 
+    /**
+     * @var bool Whether to show in section zero
+     */
+    private $show_in_section_zero;
 
     public function __construct($block_data_id, $show_in_section_zero = false)
     {
