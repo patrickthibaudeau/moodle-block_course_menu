@@ -67,7 +67,7 @@ class block_course_menu extends block_base
         }
 
         if ($block_data->section_zero == 1) {
-            $this->title = null;
+            $this->title = '';
         }
 
         $PAGE->requires->js_call_amd('block_course_menu/block', 'init');;
