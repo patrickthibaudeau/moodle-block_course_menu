@@ -65,6 +65,16 @@ $string['will_not_display'] = 'This button will not be displayed.';
 $string['yes'] = 'Yes';
 
 /**
+ * Privacy
+ */
+$string['privacy:metadata:block_course_menu'] = 'The Course Menu block stores information about menu configurations, including which user last modified the configuration.';
+$string['privacy:metadata:block_course_menu:usermodified'] = 'The ID of the user who last modified the menu configuration.';
+$string['privacy:metadata:block_course_menu_section'] = 'The Course Menu block stores information about menu sections, including which user last modified each section.';
+$string['privacy:metadata:block_course_menu_section:usermodified'] = 'The ID of the user who last modified the menu section.';
+$string['privacy:metadata:block_course_menu_button'] = 'The Course Menu block stores information about menu buttons, including which user last modified each button.';
+$string['privacy:metadata:block_course_menu_button:usermodified'] = 'The ID of the user who last modified the menu button.';
+
+/**
  * Colors
  */
 $string['text_color'] = 'Text colour';
